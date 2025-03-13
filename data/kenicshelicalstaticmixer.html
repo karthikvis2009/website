@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenics static mixer simulation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id = "case-info">
+    <header>
+        <h1>Laminar flow simulation of a kenics helical static mixer</h1>
+    </header>
+    <main style="padding: 1em">
+        <img src="../assets/kenics6.png" alt="Static mixer (Kenics) Simulation" class = "case-info-img" style="border: solid 2px;width: 50%; border-radius: 5">
+        <hr>
+        <p><strong>Description:</strong> Flow and mixing analysis of a Kenics helical static mixer with 6 elements.</p>
+        <p><strong>Reference Paper:</strong> <a href="https://www.researchgate.net/publication/237224585_Laminar_Flow_in_Static_Mixer_with_Helical_Elements">Laminar flow in static mixer with helical elements</a></p>
+        <hr>
+        <h3>Model</h3>
+        <p>The model geometry consists of 6 helical mixing elements of length <i>0.03 m</i> each within a pipe of diameter <i>0.02 m</i> and height <i>0.24 m</i> <br>
+        This means a clearance of <b>one element length</b> at the start and end of the flow. <br>
+        Each mixing element has one twist of 180<sup>o</sup>.</p>
+
+        <p>
+        The model was created using FreeCAD and the top, front and side views are as shown below.
+        </p>
+
+        <h3>Meshing</h3>
+        <p>Meshing was perfomed using snappyHexMesh in OpenFOAM. This meshing technique produces mostly hexahedral elements with optional refinement around specified surfaces.</p>
+        <p>The geometry was exported in <i>STL</i> format. <br>
+        Separate <i>STL</i> files were created for the inlet, outlet, walls and the entire volume.
+        </p>
+
+        <h3>Simulation</h3>
+        <p>The case was simulated using OpenFOAM.</p>
+        <p></p>
+
+        <h3>Results</h3>
+        <p>The pressure and velocity distributions around the airfoil were obtained.</p>
+
+        <h3>Validation</h3>
+        <p>Results were validated against experimental wind tunnel data.</p>
+
+        <a href="../index.html">Back to Database</a>
+    </main>
+</body>
+</html>

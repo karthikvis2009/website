@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     const testCases = [
+
         { 
-            name: "Airfoil", 
-            description: "CFD analysis of an airfoil.", 
-            image: "assets/airfoil.png",
+            name: "Kenics Helical Static Mixer", 
+            description: "CFD analysis of a Kenics helical static mixer", 
+            image: "assets/kenics6.png",
         },
+
         { 
             name: "Pipe Flow", 
             description: "Laminar and turbulent flow through a pipe.", 
@@ -37,14 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.viewDetails = (name) => {
-        // const testCase = testCases.find(tc => tc.name === name);
-        // if (testCase) {
-        //     infoTitle.textContent = testCase.name;
-        //     infoImage.src = testCase.image;
-        //     infoImage.alt = testCase.name;
-        //     infoDescription.textContent = testCase.description;
-        //     infoSection.style.display = "block";
-        // }
         const pageName = "data/" + name.toLowerCase().replace(/\s+/g, '') + ".html"; // Convert name to lowercase and remove spaces
         window.location.href = pageName; // Redirect to the corresponding HTML file
     };

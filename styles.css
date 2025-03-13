@@ -42,15 +42,20 @@ input[type="text"] {
     border-radius: 5px;
 }
 
-#testcase-info {
-    display: none;
+#case-info {
+    display: block;
     text-align: center;
-    padding: 1rem;
+    padding: 5rem;
 }
 
-#testcase-info img {
-    width: 80%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 5px;
+
+.case-info-img {
+    display: block; /* Ensure proper rendering */
+    max-width: 100%; /* Ensure it scales within the container */
+    width: 600px; /* Set a fixed width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Optional: Rounded corners */
+    margin: 20px auto; /* Center the image */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
 }
+
