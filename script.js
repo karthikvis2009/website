@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { 
             name: "Kenics Helical Static Mixer", 
             description: "CFD analysis of a Kenics helical static mixer", 
-            image: "assets/kenics6.png",
+            image: "assets/kenics/kenics6.png",
         },
 
         { 
