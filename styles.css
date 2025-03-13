@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #333;
+    color: white;
+    padding: 1rem;
+}
+
+input[type="text"] {
+    padding: 0.5rem;
+    margin: 1rem;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#testcase-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.testcase {
+    background: white;
+    padding: 1rem;
+    margin: 0.5rem;
+    width: 300px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.testcase img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+#testcase-info {
+    display: none;
+    text-align: center;
+    padding: 1rem;
+}
+
+#testcase-info img {
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 5px;
+}
