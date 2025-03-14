@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kenics static mixer simulation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Kenics static mixer simulation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body id = "case-info">
@@ -11,7 +10,8 @@
         <h1>Laminar flow simulation of a kenics helical static mixer</h1>
     </header>
     <main style="padding: 1em">
-        <img src="../assets/kenics/kenics6.png" alt="Static mixer (Kenics) Simulation" class = "case-info-img" style="border: solid 2px;width: 50%; border-radius: 5">
+        <!-- <img src="../assets/kenics/kenics6.png" alt="Static mixer (Kenics) Simulation" class = "case-info-img" style="border: solid 2px;width: 50%; border-radius: 5"> -->
+        <img src="../assets/kenics/kenicsSM.gif" alt="Static mixer (Kenics) gif" style="border: solid 2px; width: 70%">
         <hr>
         <p><strong>Description:</strong> Flow and mixing analysis of a Kenics helical static mixer with 6 elements.</p>
         <p><strong>Reference Paper:</strong> <a href="https://www.researchgate.net/publication/237224585_Laminar_Flow_in_Static_Mixer_with_Helical_Elements">Laminar flow in static mixer with helical elements</a></p>
@@ -36,7 +36,7 @@
         <h3>Simulation</h3>
         <p>The case was simulated using OpenFOAM.</p>
         <p>The inlet flow velocity was set to <i> 0.01 m/s </i> in the length direction (z) and the internal flow field was initialized with the same velocity </p>
-        <section style="border: solid 2px; padding: 0em 1em 0em 1em; border-radius: 5px;">
+        <section style="border: solid 2px; padding: 0em 1em 0em 1em; border-radius: 5px; width: 20%;">
         <h4> Boundary Conditions </h4>
         <h5><b> Velocity </b></h5>
         <ul>
@@ -55,7 +55,7 @@
         <p>The <b>steady-state</b> simulation was run for 1000 iterations using the SIMPLE algorithm.</p>
         <p>The residual plot is shown below with final residuals being in the order of 10<sup>-8</sup> </p>
         <img src="../assets/kenics/residuals.png" alt="normalized residual plot" style="width:80%;padding:0;">
-        <p>As it can be seen from the residual plot. Although the pressure residuals get reduced fast. The velocities oscillate between 1.0 to about 0.1 of the maximum values.</p>
+        <p>As it can be seen from the residual plot. Although the pressure residuals get reduced fast and stabilize quickly, the velocities oscillate between 1.0 to about 0.1 of the maximum values.</p>
         <p>After about 600 iterations, the velocity residuals oscillate about a lower mean value and the solution can be considered to be converged.</p>
 
         <h3>Results</h3>
