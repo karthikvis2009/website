@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
         },
 
         { 
-            name: "Pipe Flow", 
-            description: "Laminar and turbulent flow through a pipe.", 
-            image: "assets/pipeflow.png",
+            name: "Rising Bubble", 
+            description: "2D Simulation of a rising bubble", 
+            image: "assets/risingBub/risingBub.png",
         }
     ];
 

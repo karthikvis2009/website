@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Kenics static mixer simulation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id = "case-info">
+    <header>
+        <h1>Simulation of a rising bubble in 2D</h1>
+    </header>
+    <main style="padding: 1em">
+        <img src="../assets/risingBub/risingBub.gif" alt="Rising bubble gif" style="border: solid 2px; width: 40%">
+        <hr>
+        <p><strong>Description:</strong>Multiphase 2D bubble rise simulation</p>
+        <p><strong>Reference Paper:</strong> <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/fld.1934">Quantitative benchmark computations of two-dimensional bubble dynamics</a></p>
+        <hr>
+        <h3>Model</h3>
+
+        <p>The model geometry was created in blockMesh. The geometry is a cube (with front & back sides being empty).
+        The width of the cube is 1m and height is 2m. The depth was chosen to be <i>0.2m</i>.<br>
+
+        The bubble was initialized at (0.5, 0.5, 0) and it had a radius of 0.25m.
+        </p>
+
+        <h3>Meshing</h3>
+        <p>
+        The meshing was done using the blockMesh utility in OpenFOAM. <br>
+        The mesh had 320000 hexahedral cells and 642402 points.
+        </p>
+
+        <h3>Simulation</h3>
+        <p>The case was simulated using OpenFOAM.<br>
+        The volume fraction in the liquid phase (&#945) was initialized with a value 0 at the above mentioned bubble location while it was initialized with a value 1 elsewhere.
+        <p>
+        The default values for alpha.water was set to 1 everywhere.<br>
+        <b id="setFields">setFields</b> :The value for alpha.water was set to 0 in the cells for a cylinder -> p1 = (0.5, 0.5, -0.2), p2 = (0.5, 0.5, 0.2), radius = 0.25.<br>
+        <b>properties</b>:
+        <table>
+            <tr>
+                <th> Property </th>
+                <th> Value </th>
+            </tr>
+            <tr>
+                <td> Nu_liquid </td>
+                <td> 0.01 </td>
+            </tr>
+
+            <tr>
+                <td> Nu_gas </td>
+                <td> 0.01 </td>
+            </tr>
+
+            <tr>
+                <td> rho_liquid </td>
+                <td> 1000 </td>
+            </tr>
+
+            <tr>
+                <td> rho_gas </td>
+                <td> 100 </td>
+            </tr>
+
+            <tr>
+                <td> Surface Tension coefficient (&#963)</td>
+                <td> 24.5 </td>
+            </tr>
+
+            <tr>
+                <td> Gravitational acceleration (gy)</td>
+                <td> -0.98 </td>
+            </tr>
+        </table>
+        These properties lead to a <b>Reynolds Number (Re) = 35</b> and <b>Eötvös number (Eo) = 10</b>.
+        </p>
+
+
+        <section style="border: solid 2px; padding: 0em 1em 0em 1em; border-radius: 5px; width: 20%;">
+        <h4> Boundary Conditions </h4>
+
+        <h5><b> alpha.water </b></h5>
+        <ul>
+            <li><b>internalField</b> : Initialized using <a class="link" href="#setFields">setFields</a></li>.
+            <li><b>leftRight</b> : zeroGradient</li>
+            <li><b>bottomTop</b>: zeroGradient</li>
+            <li><b>frontBack</b>: empty</li>
+        </ul>
+        
+        <h5><b> Velocity </b></h5>
+        <ul>
+            <li><b>internalField</b> : uniform (0 0 0)</li>
+            <li><b>leftRight</b> : slip</li>
+            <li><b>bottomTop</b>: noSlip</li>
+            <li><b>frontBack</b>: empty</li>
+        </ul>
+
+        <h5> <b>Pressure (p_rgh)</b> </h5>
+        <ul>
+            <li><b>internalField</b> : uniform 0</li>
+            <li><b>leftRight</b> : fixedFluxPressure</li>
+            <li><b>bottomTop</b>: fixedFluxPressure</li>
+            <li><b>frontBack</b>: empty</li>
+        </ul>
+        </section>
+
+        <p>The transient laminar flow simulation was run for a total of <b>3 seconds</b> with a timestep of <b>1e-5 s</b>. <br>
+        The solutions were obtained using the <b>Pressure-implicit splitting of operators (PISO)</b> algorithm with 3 correctors and 1 outer corrector.<br>
+        The relaxation factor for p_rgh was set to 0.3.
+        </p>
+
+        <!-- <h3>Results</h3> -->
+        <!-- <p></p> -->
+
+        <h3>Validation</h3>
+        <p> The results were validated using the already available validation dataset available <a href="https://wwwold.mathematik.tu-dortmund.de/~featflow/en/benchmarks/cfdbenchmarking/bubble/bubble_reference.html">here</a>.<br>
+        The dataset <i>c1g1l7</i> was used for the validations.<br>
+
+        <img src="../assets/risingBub/valData.png" alt="Validation data" style="border: solid 2px; width: 40%"><br>
+        As it can be seen from the above image. The bubble centroid, rise velocity and circularity were compared. The simulation results are very close compared to the validation results.
+
+
+        </p>
+
+        <a href="../index.html">Back to Database</a>
+    </main>
+</body>
+</html>
