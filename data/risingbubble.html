@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Kenics static mixer simulation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Rising bubble 2D</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body id = "case-info">
@@ -28,6 +28,9 @@
         The meshing was done using the blockMesh utility in OpenFOAM. <br>
         The mesh had 320000 hexahedral cells and 642402 points.
         </p>
+
+        <h3>Physics and Equations</h3>
+
 
         <h3>Simulation</h3>
         <p>The case was simulated using OpenFOAM.<br>
@@ -75,7 +78,7 @@
         </p>
 
 
-        <section style="border: solid 2px; padding: 0em 1em 0em 1em; border-radius: 5px; width: 20%;">
+        <section style="border: solid 2px; padding: 0em 1em 0em 1em; border-radius: 5px; width: 40%;">
         <h4> Boundary Conditions </h4>
 
         <h5><b> alpha.water </b></h5>
@@ -115,7 +118,7 @@
         <p> The results were validated using the already available validation dataset available <a href="https://wwwold.mathematik.tu-dortmund.de/~featflow/en/benchmarks/cfdbenchmarking/bubble/bubble_reference.html">here</a>.<br>
         The dataset <i>c1g1l7</i> was used for the validations.<br>
 
-        <img src="../assets/risingBub/valData.png" alt="Validation data" style="border: solid 2px; width: 40%"><br>
+        <img src="../assets/risingBub/valData.png" alt="Validation data" style="border: solid 2px; width: 50%"><br>
         As it can be seen from the above image. The bubble centroid, rise velocity and circularity were compared. The simulation results are very close compared to the validation results.
 
 
