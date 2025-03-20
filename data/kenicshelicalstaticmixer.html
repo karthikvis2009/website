@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Kenics static mixer simulation</title>
     <link rel="stylesheet" href="styles.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body id = "case-info">
     <header>
@@ -32,6 +44,22 @@
         </p>
         <p>The resulting mesh had 5789599 points and 4453943 cells.</p>
         <p>The following patches were created : inlet, outlet & walls</p>
+
+        <h3>Physics</h3>
+        <p>
+        The <i>incompressible</i> Navier-Stokes equations were solved in OpenFOAM for a <i>laminar</i> flow case since for the simulation, Re = 10.<br>
+        The Mass conservation equation is given by <br>
+        $$ \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} = 0$$
+        <br>
+        The steady-state Momentum conservation equations in x, y & z directions are <br>
+
+        $$ x:   u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z} = -\frac{\partial P}{\partial x} + \mu\left(\frac{\partial ^2 u}{\partial ^2 x} + \frac{\partial ^2 u}{\partial ^2 y} + \frac{\partial ^2 u}{\partial ^2 z} \right) $$
+        <br>
+        $$ y:   u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} + w\frac{\partial v}{\partial z}  = -\frac{\partial P}{\partial y} + \mu\left(\frac{\partial ^2 v}{\partial ^2 x} + \frac{\partial ^2 v}{\partial ^2 y} + \frac{\partial ^2 v}{\partial ^2 z} \right) $$
+        <br>
+        $$ z:   u\frac{\partial w}{\partial x} + v\frac{\partial w}{\partial y} + w\frac{\partial w}{\partial z}  = -\frac{\partial P}{\partial z} + \mu\left(\frac{\partial ^2 w}{\partial ^2 x} + \frac{\partial ^2 w}{\partial ^2 y} + \frac{\partial ^2 w}{\partial ^2 z} \right) $$
+        
+        </p>
 
         <h3>Simulation</h3>
         <p>The case was simulated using OpenFOAM.</p>

@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Rising bubble 2D</title>
     <link rel="stylesheet" href="styles.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body id = "case-info">
     <header>
@@ -29,16 +41,18 @@
         The mesh had 320000 hexahedral cells and 642402 points.
         </p>
 
-        <h3>Physics and Equations</h3>
-
+        <h3>Physics</h3>
+        The volume of fluid method is used in this case for free surface modeling of the bubble-liquid interaction.
+        $$\frac{\partial U}{\partial t} = abs$$
 
         <h3>Simulation</h3>
-        <p>The case was simulated using OpenFOAM.<br>
+        <p>The case was simulated using OpenFOAM using the <i>incompressibleVoF</i> solver.<br>
         The volume fraction in the liquid phase (&#945) was initialized with a value 0 at the above mentioned bubble location while it was initialized with a value 1 elsewhere.
         <p>
         The default values for alpha.water was set to 1 everywhere.<br>
-        <b id="setFields">setFields</b> :The value for alpha.water was set to 0 in the cells for a cylinder -> p1 = (0.5, 0.5, -0.2), p2 = (0.5, 0.5, 0.2), radius = 0.25.<br>
-        <b>properties</b>:
+        <b id="setFields">setFields</b> : The value for alpha.water was set to 0 in the cells for a cylinder -> p1 = (0.5, 0.5, -0.2), p2 = (0.5, 0.5, 0.2), radius = 0.25.<br>
+        <br>
+        <b>Properties</b>:
         <table>
             <tr>
                 <th> Property </th>

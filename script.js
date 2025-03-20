@@ -52,4 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     displayTestCases();
+
+    
 });
