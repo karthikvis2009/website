@@ -5,6 +5,7 @@
     --green: #8cc85f;
     --red: #ff5454;
     --purple: #cf87e8;
+    --greenBt: #36c692;
 }
 
 body {
@@ -27,9 +28,9 @@ input[type="text"] {
     padding: 0.5rem;
     margin: 1rem;
     width: 80%;
-    max-width: 400px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    max-width: 30rem;
+    border: 0.1rem solid var(--greenBt);
+    border-radius: 0.2rem;
     background: var(--fg);
     color: var(--bg);
 }
@@ -50,9 +51,9 @@ button{
     color: var(--purple);
     padding: 1rem;
     margin: 0.5rem;
-    width: 300px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 20rem;
+    border-radius: 1rem;
+    box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.1);
     h3{
         color: var(--blue);
     }
@@ -63,14 +64,13 @@ button{
 }
 
 .testcase:hover{
-    box-shadow: 0px 0px 10px rgba(140, 200, 95, 0.8);
+    box-shadow: 0rem 0rem 1rem rgba(54, 198, 146, 0.8);
 }
 
 .testcase img {
     width: 100%;
-    height: 200px;
+    height: 15rem;
     object-fit: cover;
-    border-radius: 5px;
 }
 
 #case-info {
@@ -84,10 +84,10 @@ button{
     h2, h3{
         background: var(--blue);
         color: var(--bg);
-        width: 10%;
+        width: 10rem;
         margin: 0 auto;
-        border-radius: 5px;
-        box-shadow: 0px 0px 5px var(--green);
+        border-radius: 1rem;
+        box-shadow: 0rem 0rem 0.5rem var(--green);
     }
 }
 
@@ -110,12 +110,11 @@ section {
 
 .case-info-img {
     display: block; /* Ensure proper rendering */
-    max-width: 100%; /* Ensure it scales within the container */
-    width: 600px; /* Set a fixed width */
+    max-width: 50rem; /* Ensure it scales within the container */
+    width: 50rem; /* Set a fixed width */
     height: auto; /* Maintain aspect ratio */
-    border-radius: 5px; /* Optional: Rounded corners */
-    margin: 20px auto; /* Center the image */
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
+    margin: 2rem auto; /* Center the image */
+    border: 0.1rem solid var(--fg);
 }
 
 #btd {
