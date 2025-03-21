@@ -108,6 +108,17 @@ section {
     margin: auto;
 }
 
+a {
+    color: var(--greenBt);
+    text-decoration: none;
+}
+a:hover{
+    color: var(--purple);
+}
+a:visited{
+    color: var(--purple);
+}
+
 .case-info-img {
     display: block; /* Ensure proper rendering */
     max-width: 50rem; /* Ensure it scales within the container */
@@ -122,6 +133,10 @@ section {
     width: 50px;
     margin: 0 auto;
     padding: 2em 4em 2em 4em;
+    border-radius: 1rem;
     background: var(--fg);
     color: var(--bg);
+}
+#btd:hover{
+    background: var(--green);
 }
