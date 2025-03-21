@@ -63,6 +63,22 @@ button{
     padding: 5rem;
 }
 
+table {
+    text-align: center;
+    margin: auto;
+    th {
+        padding: 1em;
+        background: #323437;
+        color: #cecece;
+    }
+    td {
+        padding: 1em;
+    }
+}
+
+section {
+    margin: auto;
+}
 
 .case-info-img {
     display: block; /* Ensure proper rendering */
@@ -73,4 +89,3 @@ button{
     margin: 20px auto; /* Center the image */
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
 }
-

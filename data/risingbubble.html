@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Rising bubble 2D</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <script>
         MathJax = {
             tex: {
@@ -24,7 +24,7 @@
     <main style="padding: 1em">
         <img src="../assets/risingBub/risingBub.gif" alt="Rising bubble gif" style="border: solid 2px; width: 40%">
         <hr>
-        <p><strong>Description:</strong>Multiphase 2D bubble rise simulation</p>
+        <p><strong>Description: </strong>Multiphase 2D bubble rise simulation</p>
         <p><strong>Reference Paper:</strong> <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/fld.1934">Quantitative benchmark computations of two-dimensional bubble dynamics</a></p>
         <hr>
         <h3>Model</h3>
@@ -35,16 +35,40 @@
         The bubble was initialized at (0.5, 0.5, 0) and it had a radius of 0.25m.
         </p>
 
+        <hr>
         <h3>Meshing</h3>
         <p>
         The meshing was done using the blockMesh utility in OpenFOAM. <br>
         The mesh had 320000 hexahedral cells and 642402 points.
         </p>
 
+        <hr>
         <h3>Physics</h3>
-        The volume of fluid method is used in this case for free surface modeling of the bubble-liquid interaction.
-        $$\frac{\partial U}{\partial t} = abs$$
+        The <i>incompressible</i> volume-of-fluid method is used in this case for free surface modeling of the bubble-liquid interface. This method is useful when the interface between the two phases is important to track. It is represented by the following equations<br>
+        <br>
+        <b> Continuity equation </b>
+        $$\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} = 0$$
 
+        <br>
+
+        <b> Momentum conservation equations </b>
+
+        $$ x: \frac{\partial u}{\partial t} + u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z}  = -\frac{1}{\rho_{mix}} \frac{\partial P}{\partial x} + \frac{\mu_{mix}}{\rho_{mix}}\left(\frac{\partial ^2 u}{\partial ^2 x} + \frac{\partial ^2 u}{\partial ^2 y} + \frac{\partial ^2 u}{\partial ^2 z} \right) + g_x + F_{s,x}$$
+        <br>
+        $$ y: \frac{\partial v}{\partial t} + u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} + w\frac{\partial v}{\partial z}  = -\frac{1}{\rho_{mix}} \frac{\partial P}{\partial y} + \frac{\mu_{mix}}{\rho_{mix}}\left(\frac{\partial ^2 v}{\partial ^2 x} + \frac{\partial ^2 v}{\partial ^2 y} + \frac{\partial ^2 v}{\partial ^2 z} \right) + g_y + F_{s,y}$$
+        <br>
+        $$ z: \frac{\partial w}{\partial t} + u\frac{\partial w}{\partial x} + v\frac{\partial w}{\partial y} + w\frac{\partial w}{\partial z}  = -\frac{1}{\rho_{mix}} \frac{\partial P}{\partial z} + \frac{\mu_{mix}}{\rho_{mix}}\left(\frac{\partial ^2 w}{\partial ^2 x} + \frac{\partial ^2 w}{\partial ^2 y} + \frac{\partial ^2 w}{\partial ^2 z} \right) + g_z + F_{s,z}$$
+        <br>
+        Where,<br>
+        $$ \rho_{mix} = \alpha \rho_{liq} + (1-\alpha)\rho_{gas} $$
+        and <br>
+        $$ \mu_{mix} = \alpha \mu_{liq} + (1-\alpha)\mu_{gas} $$
+        <br>
+        Here, $\alpha$ is the volume fraction and F<sub>s,x</sub>, F<sub>s,y</sub> and F<sub>s,z</sub> are the surface tension forces given by $F_s = \sigma \kappa \nabla \alpha$ <br>
+        where, $\kappa = \nabla \cdot (\frac{\nabla \alpha}{|\nabla \alpha|})$
+        <br>
+
+        <hr>
         <h3>Simulation</h3>
         <p>The case was simulated using OpenFOAM using the <i>incompressibleVoF</i> solver.<br>
         The volume fraction in the liquid phase (&#945) was initialized with a value 0 at the above mentioned bubble location while it was initialized with a value 1 elsewhere.
@@ -52,8 +76,7 @@
         The default values for alpha.water was set to 1 everywhere.<br>
         <b id="setFields">setFields</b> : The value for alpha.water was set to 0 in the cells for a cylinder -> p1 = (0.5, 0.5, -0.2), p2 = (0.5, 0.5, 0.2), radius = 0.25.<br>
         <br>
-        <b>Properties</b>:
-        <table>
+        <table border="1">
             <tr>
                 <th> Property </th>
                 <th> Value </th>
@@ -85,58 +108,69 @@
 
             <tr>
                 <td> Gravitational acceleration (gy)</td>
-                <td> -0.98 </td>
+                <td> 0.98 </td>
             </tr>
         </table>
+        <br>
         These properties lead to a <b>Reynolds Number (Re) = 35</b> and <b>Eötvös number (Eo) = 10</b>.
         </p>
 
 
-        <section style="border: solid 2px; padding: 0em 1em 0em 1em; border-radius: 5px; width: 40%;">
-        <h4> Boundary Conditions </h4>
+        <h4>Boundary Conditions</h4>
+        <table border="1">
+            <tr>
+                <th>Parameter</th>
+                <th>internalField</th>
+                <th>leftRight</th>
+                <th>bottomTop</th>
+                <th>frontBack</th>
+            </tr>
+            <tr>
+                <td><b>alpha.water</b></td>
+                <td>Initialized using <a class="link" href="#setFields">setFields</a></td>
+                <td>zeroGradient</td>
+                <td>zeroGradient</td>
+                <td>empty</td>
+            </tr>
+            <tr>
+                <td><b>Velocity</b></td>
+                <td>uniform (0 0 0)</td>
+                <td>slip</td>
+                <td>noSlip</td>
+                <td>empty</td>
+            </tr>
+            <tr>
+                <td><b>Pressure (p_rgh)</b></td>
+                <td>uniform 0</td>
+                <td>fixedFluxPressure</td>
+                <td>fixedFluxPressure</td>
+                <td>empty</td>
+            </tr>
+        </table>
 
-        <h5><b> alpha.water </b></h5>
-        <ul>
-            <li><b>internalField</b> : Initialized using <a class="link" href="#setFields">setFields</a></li>.
-            <li><b>leftRight</b> : zeroGradient</li>
-            <li><b>bottomTop</b>: zeroGradient</li>
-            <li><b>frontBack</b>: empty</li>
-        </ul>
-        
-        <h5><b> Velocity </b></h5>
-        <ul>
-            <li><b>internalField</b> : uniform (0 0 0)</li>
-            <li><b>leftRight</b> : slip</li>
-            <li><b>bottomTop</b>: noSlip</li>
-            <li><b>frontBack</b>: empty</li>
-        </ul>
 
-        <h5> <b>Pressure (p_rgh)</b> </h5>
-        <ul>
-            <li><b>internalField</b> : uniform 0</li>
-            <li><b>leftRight</b> : fixedFluxPressure</li>
-            <li><b>bottomTop</b>: fixedFluxPressure</li>
-            <li><b>frontBack</b>: empty</li>
-        </ul>
-        </section>
 
         <p>The transient laminar flow simulation was run for a total of <b>3 seconds</b> with a timestep of <b>1e-5 s</b>. <br>
-        The solutions were obtained using the <b>Pressure-implicit splitting of operators (PISO)</b> algorithm with 3 correctors and 1 outer corrector.<br>
+        The solutions were obtained using the <b>Pressure-Implicit with Splitting of Operators (PISO)</b> algorithm with 3 correctors and 1 outer corrector.<br>
         The relaxation factor for p_rgh was set to 0.3.
         </p>
 
         <!-- <h3>Results</h3> -->
         <!-- <p></p> -->
 
+        <hr>
         <h3>Validation</h3>
         <p> The results were validated using the already available validation dataset available <a href="https://wwwold.mathematik.tu-dortmund.de/~featflow/en/benchmarks/cfdbenchmarking/bubble/bubble_reference.html">here</a>.<br>
         The dataset <i>c1g1l7</i> was used for the validations.<br>
+        <br>
 
         <img src="../assets/risingBub/valData.png" alt="Validation data" style="border: solid 2px; width: 50%"><br>
+        <br>
         As it can be seen from the above image. The bubble centroid, rise velocity and circularity were compared. The simulation results are very close compared to the validation results.
 
 
         </p>
+        <hr>
 
         <a href="../index.html">Back to Database</a>
     </main>

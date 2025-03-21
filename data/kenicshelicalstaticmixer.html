@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Kenics static mixer simulation</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <script>
         MathJax = {
             tex: {
@@ -23,7 +23,7 @@
     </header>
     <main style="padding: 1em">
         <!-- <img src="../assets/kenics/kenics6.png" alt="Static mixer (Kenics) Simulation" class = "case-info-img" style="border: solid 2px;width: 50%; border-radius: 5"> -->
-        <img src="../assets/kenics/kenicsSM.gif" alt="Static mixer (Kenics) gif" style="border: solid 2px; width: 70%">
+        <img src="../assets/kenics/kenicsSM.gif" alt="Static mixer (Kenics) gif" style="border: solid 2px; width: 40%">
         <hr>
         <p><strong>Description:</strong> Flow and mixing analysis of a Kenics helical static mixer with 6 elements.</p>
         <p><strong>Reference Paper:</strong> <a href="https://www.researchgate.net/publication/237224585_Laminar_Flow_in_Static_Mixer_with_Helical_Elements">Laminar flow in static mixer with helical elements</a></p>
@@ -36,6 +36,7 @@
         <p>
         The model was created using FreeCAD and the patches were exported as <i>STL</i> files and kept in the <i>"./constant/triSurface" </i>folder
         </p>
+        <hr>
 
         <h3>Meshing</h3>
         <p>Meshing was perfomed using snappyHexMesh in OpenFOAM. This meshing technique produces mostly hexahedral elements with optional refinement around specified surfaces.</p>
@@ -45,6 +46,7 @@
         <p>The resulting mesh had 5789599 points and 4453943 cells.</p>
         <p>The following patches were created : inlet, outlet & walls</p>
 
+        <hr>
         <h3>Physics</h3>
         <p>
         The <i>incompressible</i> Navier-Stokes equations were solved in OpenFOAM for a <i>laminar</i> flow case since for the simulation, Re = 10.<br>
@@ -53,47 +55,56 @@
         <br>
         The steady-state Momentum conservation equations in x, y & z directions are <br>
 
-        $$ x:   u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z} = -\frac{\partial P}{\partial x} + \mu\left(\frac{\partial ^2 u}{\partial ^2 x} + \frac{\partial ^2 u}{\partial ^2 y} + \frac{\partial ^2 u}{\partial ^2 z} \right) $$
+        $$ x:   u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z} = -\frac{1}{\rho}\frac{\partial P}{\partial x} + \nu\left(\frac{\partial ^2 u}{\partial ^2 x} + \frac{\partial ^2 u}{\partial ^2 y} + \frac{\partial ^2 u}{\partial ^2 z} \right)$$
         <br>
-        $$ y:   u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} + w\frac{\partial v}{\partial z}  = -\frac{\partial P}{\partial y} + \mu\left(\frac{\partial ^2 v}{\partial ^2 x} + \frac{\partial ^2 v}{\partial ^2 y} + \frac{\partial ^2 v}{\partial ^2 z} \right) $$
+        $$ y:   u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} + w\frac{\partial v}{\partial z} = -\frac{1}{\rho}\frac{\partial P}{\partial y} + \nu\left(\frac{\partial ^2 v}{\partial ^2 x} + \frac{\partial ^2 v}{\partial ^2 y} + \frac{\partial ^2 v}{\partial ^2 z} \right)$$
         <br>
-        $$ z:   u\frac{\partial w}{\partial x} + v\frac{\partial w}{\partial y} + w\frac{\partial w}{\partial z}  = -\frac{\partial P}{\partial z} + \mu\left(\frac{\partial ^2 w}{\partial ^2 x} + \frac{\partial ^2 w}{\partial ^2 y} + \frac{\partial ^2 w}{\partial ^2 z} \right) $$
+        $$ z:   u\frac{\partial w}{\partial x} + v\frac{\partial w}{\partial y} + w\frac{\partial w}{\partial z} = -\frac{1}{\rho}\frac{\partial P}{\partial z} + \nu\left(\frac{\partial ^2 w}{\partial ^2 x} + \frac{\partial ^2 w}{\partial ^2 y} + \frac{\partial ^2 w}{\partial ^2 z} \right)$$
         
         </p>
 
+        <hr>
         <h3>Simulation</h3>
         <p>The case was simulated using OpenFOAM.</p>
         <p>The inlet flow velocity was set to <i> 0.01 m/s </i> in the length direction (z) and the internal flow field was initialized with the same velocity </p>
-        <section style="border: solid 2px; padding: 0em 1em 0em 1em; border-radius: 5px; width: 20%;">
-        <h4> Boundary Conditions </h4>
-        <h5><b> Velocity </b></h5>
-        <ul>
-            <li><b>Inlet</b> : uniform (0 0 0.01)</li>
-            <li><b>Outlet</b>: zeroGradient</li>
-            <li><b>Walls</b>: noSlip</li>
-        </ul>
+        <br>
+        <h4>Boundary Conditions</h4>
+        <table border="1">
+            <tr>
+                <th>Parameter</th>
+                <th>Inlet</th>
+                <th>Outlet</th>
+                <th>Walls</th>
+            </tr>
+            <tr>
+                <td><b>Velocity</b></td>
+                <td>uniform (0 0 0.01)</td>
+                <td>zeroGradient</td>
+                <td>noSlip</td>
+            </tr>
+            <tr>
+                <td><b>Pressure</b></td>
+                <td>zeroGradient</td>
+                <td>uniform 0</td>
+                <td>zeroGradient</td>
+            </tr>
+        </table>
 
-        <h5> <b>Pressure</b> </h5>
-        <ul>
-            <li><strong>Inlet</strong> : zeroGradient</li>
-            <li><strong>Outlet</strong>: uniform 0</li>
-            <li><strong>Walls</strong>: zeroGradient</li>
-        </ul>
-        </section>
+        <br>
         <p>The <b>steady-state</b> simulation was run for 1000 iterations using the SIMPLE algorithm.</p>
         <p>The residual plot is shown below with final residuals being in the order of 10<sup>-8</sup> </p>
-        <img src="../assets/kenics/residuals.png" alt="normalized residual plot" style="width:80%;padding:0;">
+        <img src="../assets/kenics/residuals.png" alt="normalized residual plot" style="width:40%;padding:0;">
         <p>As it can be seen from the residual plot. Although the pressure residuals get reduced fast and stabilize quickly, the velocities oscillate between 1.0 to about 0.1 of the maximum values.</p>
         <p>After about 600 iterations, the velocity residuals oscillate about a lower mean value and the solution can be considered to be converged.</p>
 
-        <!-- <h3>Results</h3> -->
-        <!-- <p></p> -->
+        <hr>
 
         <h3>Validation</h3>
         <p>Results were validated against the aforementioned reference paper.</p>
         <p>The pressure drop across the static mixer was 14.5 Pa which is very similar compared to the reference pressure drop of 14.4 Pa</p>
         <p>This provides a good enough quantitative validation but some more qualitative flow characteristics are also compared with the reference.</p>
 
+        <hr>
         <a href="../index.html">Back to Database</a>
     </main>
 </body>
