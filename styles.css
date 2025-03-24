@@ -181,10 +181,7 @@ a:visited{
 }
 
 #btd {
-    /* height: 1rem; */
-    /* width: 1rem; */
     display: inline-block;
-    /* margin: 0 auto; */
     padding: 0.8rem;
     border-radius: 0.8rem;
     border: 0.1rem solid var(--green);

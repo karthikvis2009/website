@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Rising Bubble", 
             description: "2D Simulation of a rising bubble", 
             image: "assets/risingBub/risingBub.png",
+        },
+
+        { 
+            name: "fpcLam", 
+            description: "2D laminar flow past a cylinder", 
+            image: "assets/fpcLam/fpcLam.png",
         }
     ];
 

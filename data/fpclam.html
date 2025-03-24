@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Laminar flow past a cylinder</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body id = "case-info">
+    <header style="background-image:url('../assets/wp.jpg')">
+        <h1>Simulation of flow past a cylinder</h1>
+    </header>
+    <main style="padding: 1em">
+        <img class=case-info-img src="../assets/fpcLam/fpcLam.gif" alt="2D cylinder gif">
+        <hr>
+        <p><strong>Description:</strong> 2D flow past a circular cylinder in the L3 (laminar vortex shedding) regime</p>
+        <p><strong>Reference Paper:</strong> <a href="https://www.researchgate.net/publication/258950668_Numerical_Study_and_Physical_Analysis_of_the_Pressure_and_Velocity_Field_in_the_Near_Wake_of_a_Circular_Cylinder">Numerical Study and Phycial Analysis of the pressure and velocity field near wake of a circular cylinder</a></p>
+        <hr>
+        <section class="contentSection">
+        <h3>Model</h3>
+        <p>The model consists of a rectangular domain of length 50m and height 40m.<br>
+        <p>The z-direction (empty) width was taken to be 1m. </p>
+        <br>
+        The cylinder is at 20m from the inlet boundary and in the middle of bottom and top boundaries. <b>
+        </p>
+        </section>
+
+
+        <section class="contentSection">
+        <h3>Meshing</h3>
+        <p> Meshing was done using Gmsh.<p>
+        <p> The resulting mesh had 11308 points and 11064 prism cells. </p>
+        <p> The mesh was refined near the cylinder surface to accurately capture the drag and lift effects at the cylinder wall. </p>
+        <p> The generated mesh (with extension .msh) was used in OpenFOAM using the <b>gmshToFoam</b> utility and the patch types were changed in <i>./constant/polyMesh/boundary</i> file. </p>
+
+        </section>
+
+        <section class="contentSection">
+        <h3>Physics</h3>
+        <p>
+        The <i>2D incompressible</i> Navier-Stokes equations were solved in OpenFOAM for a <i>laminar</i> flow case since for the simulation, Re = 100.<br>
+        The Mass conservation equation is given by <br>
+        $$ \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0$$
+        <br>
+        The transient 2D incompressible momentum conservation equations in x & y directions are <br>
+
+        $$ x: \frac{\partial u}{\partial t} + u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} = -\frac{1}{\rho}\frac{\partial P}{\partial x} + \nu\left(\frac{\partial ^2 u}{\partial ^2 x} + \frac{\partial ^2 u}{\partial ^2 y} \right)$$
+        <br>
+        $$ y: \frac{\partial v}{\partial t} + u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} = -\frac{1}{\rho}\frac{\partial P}{\partial y} + \nu\left(\frac{\partial ^2 v}{\partial ^2 x} + \frac{\partial ^2 v}{\partial ^2 y} \right)$$
+        
+        </p>
+
+        </section>
+        <section class="contentSection">
+        <h3>Simulation</h3>
+        <p>The case was simulated using OpenFOAM.</p>
+        <p>The inlet flow velocity was set to <i> 0.5 m/s </i> (corresponding to Re = 100) in the streamwise direction (x) and the internal flow field was initialized with the same velocity </p>
+        <br>
+
+        <h4>Boundary Conditions</h4>
+        <table border="1">
+            <tr>
+                <th>Parameter</th>
+                <th>Inlet</th>
+                <th>Outlet</th>
+                <th>bottom</th>
+                <th>top</th>
+                <th>cylinder</th>
+            </tr>
+            <tr>
+                <td><b>Velocity</b></td>
+                <td>uniform (0 0 0.5)</td>
+                <td>zeroGradient</td>
+                <td>symmetry</td>
+                <td>symmetry</td>
+                <td>noSlip</td>
+            </tr>
+            <tr>
+                <td><b>Pressure</b></td>
+                <td>zeroGradient</td>
+                <td>uniform 0</td>
+                <td>symmetry</td>
+                <td>symmetry</td>
+                <td>zeroGradient</td>
+            </tr>
+        </table>
+
+        <br>
+        <p>The <b>transient</b> simulation was run for 350 s with a $\Delta T$ of 0.0001 using the PIMPLE (PISO/SIMPLE) algorithm.</p>
+        <p>The PISO algorithm with 3 Non-orthogonal correctors and 2 correctors was used.</p>
+        <br>
+        <p> A plot of normalised residuals is shown below<p>
+        <img src="../assets/fpcLam/residuals.png" alt="normalized residual plot" style="width:50rem">
+        <p> From the residual plot, it can be seen that the residuals start oscillating and the solution can be said to be sufficiently converged since the residuals don't decrease anymore</p>
+        </section>
+
+        <section class="contentSection">
+        <h3>Validation</h3>
+        <p>Results were validated against the aforementioned reference paper.</p>
+        <p>Drag ($C_d$) and Lift ($C_l$) coefficients were monitored during the simulations as a measure for convergence.</p>
+        <p>A plot of these coefficients for the simulation time is shown below.</p>
+        <img src="../assets/fpcLam/coeffs.png" alt="normalized residual plot" style="width:50rem">
+        <p> From the plot, it can be observed that the system exhibits a steady oscillating pattern after the initial unsteadiness from about 200s. </p>
+        <p> Time range of <strong>250-350s</strong> was selected for computing the average values for the coefficients to validate against the reference. </p>
+        <table border="1">
+            <tr>
+                <th>Coefficient</th>
+                <th>Simulation</th>
+                <th>Reference</th>
+            </tr>
+            <tr>
+                <td> $C_d$ </td>
+                <td> 1.3756 </td>
+                <td> $1.386 \pm 0.015$ </td> 
+            </tr>
+
+            <tr>
+                <td> $C_l$ </td>
+                <td> 0.231 </td>
+                <td> 0.25 </td> 
+            </tr>
+        </table>
+        <br>
+        <p> From the above table, it can be inferred that the simulation is successfully validated. </p>
+
+
+        </section>
+        <br>
+        <a id="btd" href="../index.html">Back to Database</a>
+    </main>
+</body>
+</html>
