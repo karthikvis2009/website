@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
 
         { 
-            name: "fpcLam", 
+            name: "Laminar flow past a cylinder", 
             description: "2D laminar flow past a cylinder", 
             image: "assets/fpcLam/fpcLam.png",
         }
