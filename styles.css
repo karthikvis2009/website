@@ -18,10 +18,19 @@ body {
 }
 
 header {
-    background: #1a1a1a;
+    background-image = url("../assets/wp.jpg");
     color: #bdbdbd;
     padding: 1rem;
     text-align: center;
+
+    h1{
+        font-size: 42px;
+        font-weight: bold;
+    }
+    h2{
+        font-family: "Dancing Script", cursive;
+        font-size: 2rem;
+    }
 }
 
 input[type="text"] {
@@ -35,9 +44,19 @@ input[type="text"] {
     color: var(--bg);
 }
 
-button{
+.testCaseBtn{
     background: #949494;
     color: var(--bg);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border-color: var(--bg);
+    transition: all 0.3s;
+}
+.testCaseBtn:hover{
+    transform: translateY(-0.3rem);
+    border-color: var(--green);
+    /* background: var(--bg); */
+    /* color: var(--purple); */
 }
 
 #testcase-list {
@@ -54,6 +73,8 @@ button{
     width: 20rem;
     border-radius: 1rem;
     box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.1);
+
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
     h3{
         color: var(--blue);
     }
@@ -61,10 +82,12 @@ button{
         background: var(--fg);
         color: var(--bg);
     }
+
 }
 
 .testcase:hover{
     box-shadow: 0rem 0rem 1rem rgba(54, 198, 146, 0.8);
+    transform: scale(1.02);
 }
 
 .testcase img {
@@ -129,14 +152,22 @@ a:visited{
 }
 
 #btd {
-    height: 50px;
-    width: 50px;
-    margin: 0 auto;
-    padding: 2em 4em 2em 4em;
-    border-radius: 1rem;
-    background: var(--fg);
-    color: var(--bg);
+    /* height: 1rem; */
+    /* width: 1rem; */
+    display: inline-block;
+    /* margin: 0 auto; */
+    padding: 0.8rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid var(--green);
+    background: var(--bg);
+    color: var(--green);
+
+
+    transition: all 0.3s;
 }
 #btd:hover{
-    background: var(--green);
+    transform: scale(1.6);
+    transform: translateY(-0.5rem);
+    border: 0.1rem solid var(--green);
+    box-shadow: 0rem 0rem 0.5rem var(--green);
 }

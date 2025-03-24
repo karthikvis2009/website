@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img src="${tc.image}" alt="${tc.name}">
                     <h3>${tc.name}</h3>
                     <p>${tc.description}</p>
-                    <button onclick="viewDetails('${tc.name}')">View Details</button>
+                    <button class="testCaseBtn" onclick="viewDetails('${tc.name}')">View Details</button>
                 `;
                 testcaseList.appendChild(div);
             });
