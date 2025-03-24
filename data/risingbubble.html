@@ -27,6 +27,7 @@
         <p><strong>Description: </strong>Multiphase 2D bubble rise simulation</p>
         <p><strong>Reference Paper:</strong> <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/fld.1934">Quantitative benchmark computations of two-dimensional bubble dynamics</a></p>
         <hr>
+        <section class="contentSection">
         <h3>Model</h3>
 
         <p>The model geometry was created in blockMesh. The geometry is a cube (with front & back sides being empty).
@@ -35,14 +36,19 @@
         The bubble was initialized at (0.5, 0.5, 0) and it had a radius of 0.25m.
         </p>
 
-        <hr>
+        </section>
+
+
+        <section class="contentSection">
         <h3>Meshing</h3>
         <p>
         The meshing was done using the blockMesh utility in OpenFOAM. <br>
         The mesh had 320000 hexahedral cells and 642402 points.
         </p>
 
-        <hr>
+        </section>
+
+        <section class="contentSection">
         <h3>Physics</h3>
         <br>
         The <i>incompressible</i> volume-of-fluid method is used in this case for free surface modeling of the bubble-liquid interface. This method is useful when the interface between the two phases is important to track. It is represented by the following equations<br>
@@ -69,7 +75,8 @@
         where, $\kappa = \nabla \cdot (\frac{\nabla \alpha}{|\nabla \alpha|})$
         <br>
 
-        <hr>
+        </section>
+        <section class="contentSection">
         <h3>Simulation</h3>
         <p>The case was simulated using OpenFOAM using the <i>incompressibleVoF</i> solver.<br>
         The volume fraction in the liquid phase (&#945) was initialized with a value 0 at the above mentioned bubble location while it was initialized with a value 1 elsewhere.
@@ -159,7 +166,9 @@
         <!-- <h3>Results</h3> -->
         <!-- <p></p> -->
 
-        <hr>
+        </section>
+
+        <section class="contentSection">
         <h3>Validation</h3>
         <p> The results were validated using the already available validation dataset available <a href="https://wwwold.mathematik.tu-dortmund.de/~featflow/en/benchmarks/cfdbenchmarking/bubble/bubble_reference.html">here</a>.<br>
         The dataset <i>c1g1l7</i> was used for the validations.<br>
@@ -171,7 +180,8 @@
 
 
         </p>
-        <hr>
+
+        </section>
         <br>
         <a id="btd" href="../index.html">Back to Database</a>
     </main>
