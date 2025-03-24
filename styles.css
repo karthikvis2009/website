@@ -113,6 +113,13 @@ input[type="text"] {
         border-radius: 1rem;
         box-shadow: 0rem 0rem 0.5rem var(--green);
     }
+    h4{
+        border: 0.1rem solid var(--blue);
+        width: 15rem;
+        margin: 1rem auto;
+        padding: 0.2rem;
+        border-radius: 1rem;
+    }
 }
 
 
