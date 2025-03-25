@@ -34,6 +34,8 @@
         <br>
         The cylinder is at 20m from the inlet boundary and in the middle of bottom and top boundaries. <b>
         </p>
+        <p> The kinematic viscosity <b>($\nu$)</b> was set to <b>0.01</b>.</p>
+        <p> The reference density used for the force-coefficients calculations ($C_d$ & $C_l$) was 1.</p>
         </section>
 
 
@@ -42,6 +44,8 @@
         <p> Meshing was done using Gmsh.<p>
         <p> The resulting mesh had 11308 points and 11064 prism cells. </p>
         <p> The mesh was refined near the cylinder surface to accurately capture the drag and lift effects at the cylinder wall. </p>
+        <p> The mesh along with the patch names can be viewed in the figure below.</p>
+        <img src="../assets/fpcLam/mesh.png" alt="normalized residual plot" style="width:50rem">
         <p> The generated mesh (with extension .msh) was used in OpenFOAM using the <b>gmshToFoam</b> utility and the patch types were changed in <i>./constant/polyMesh/boundary</i> file. </p>
 
         </section>
