@@ -20,19 +20,48 @@ body {
     color: var(--fg);
 }
 
-header {
-    background-image = url("../assets/wp.jpg");
+/* .main-header{ */
+/*     background-image: linear-gradient(to-bottom, var(--black), var(--bg)); */
+/*     text-align: center; */
+/* } */
+
+@keyframes title-blink {
+    from {
+        text-shadow: none;
+    }
+    to {
+        text-shadow: 0 0 1rem var(--greenBt);
+    }
+}
+
+.main-header {
+    background-image: url("assets/wp.jpg");
+    /* background-image: linear-gradient(to right, var(--greenBt), var(--black), var(--bg), var(--black), var(--greenBt)); */
     color: #bdbdbd;
     padding: 1rem;
     text-align: center;
+    max-height: 5%;
 
     h1{
         font-size: 42px;
         font-weight: bold;
+        height: auto;
+        /* text-shadow: 0 0 1rem var(--greenBt); */
+        animation: title-blink linear both;
+        animation-duration: 1s;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
     }
     h2{
         font-family: "Dancing Script", cursive;
         font-size: 2rem;
+        font-weight: bold;
+        height: auto;
+        /* text-shadow: 0 0 1rem var(--greenBt); */
+        animation: title-blink linear both;
+        animation-duration: 1s;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
     }
 }
 
@@ -122,6 +151,16 @@ input[type="text"] {
     }
 
 }
+#case-info .data-header {
+    width: auto;
+    background-image: url("assets/wp.jpg");
+    /* background-image: linear-gradient(to right, var(--blue), var(--black), var(--bg), var(--black), var(--blue)); */
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 
 @keyframes fade-in {
