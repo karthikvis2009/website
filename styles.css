@@ -120,6 +120,7 @@ input[type="text"] {
         padding: 0.2rem;
         border-radius: 1rem;
     }
+
 }
 
 
@@ -149,8 +150,8 @@ input[type="text"] {
     animation-timeline: view();
     animation-range: entry 0% cover 20%;
 }
-.contentSection img ,
-img{
+.contentSection img,
+.case-info-img {
     display: block; /* Ensure proper rendering */
     max-width: 100%; /* Ensure it scales within the container */
     width: 50rem; /* Set a fixed width */
