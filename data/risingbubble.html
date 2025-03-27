@@ -60,10 +60,12 @@
 
         <b> Momentum conservation equations </b>
 
+        <div class="math-responsive">
         $$ x: \frac{\partial u}{\partial t} + u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} = -\frac{1}{\rho_{mix}} \frac{\partial P}{\partial x} + \frac{\mu_{mix}}{\rho_{mix}}\left(\frac{\partial ^2 u}{\partial ^2 x} + \frac{\partial ^2 u}{\partial ^2 y} \right) + g_x + F_{s,x}$$
         <br>
         $$ y: \frac{\partial v}{\partial t} + u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} = -\frac{1}{\rho_{mix}} \frac{\partial P}{\partial y} + \frac{\mu_{mix}}{\rho_{mix}}\left(\frac{\partial ^2 v}{\partial ^2 x} + \frac{\partial ^2 v}{\partial ^2 y} \right) + g_y + F_{s,y}$$
         <br>
+        </div>
 
         Where,<br>
         $$ \rho_{mix} = \alpha \rho_{liq} + (1-\alpha)\rho_{gas} $$
@@ -85,6 +87,7 @@
         The default values for alpha.water was set to 1 everywhere.<br>
         <b id="setFields">setFields</b> : The value for alpha.water was set to 0 in the cells for a cylinder -> p1 = (0.5, 0.5, -0.2), p2 = (0.5, 0.5, 0.2), radius = 0.25.<br>
         <br>
+        <div class="table-container">
         <table border="1">
             <tr>
                 <th> Property </th>
@@ -120,12 +123,14 @@
                 <td> 0.98 </td>
             </tr>
         </table>
+        </div>
         <br>
         These properties lead to a <b>Reynolds Number (Re) = 35</b> and <b>Eötvös number (Eo) = 10</b>.
         </p>
 
 
         <h4>Boundary Conditions</h4>
+        <div class="table-container">
         <table border="1">
             <tr>
                 <th>Parameter</th>
@@ -156,6 +161,7 @@
                 <td>empty</td>
             </tr>
         </table>
+        </div>
 
 
 

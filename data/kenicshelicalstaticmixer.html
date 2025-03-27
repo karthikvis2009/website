@@ -59,12 +59,14 @@
         $$ \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} = 0$$
         <br>
         The steady-state Momentum conservation equations in x, y & z directions are <br>
+        <div class="math-responsive">
 
         $$ x:   u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z} = -\frac{1}{\rho}\frac{\partial P}{\partial x} + \nu\left(\frac{\partial ^2 u}{\partial ^2 x} + \frac{\partial ^2 u}{\partial ^2 y} + \frac{\partial ^2 u}{\partial ^2 z} \right)$$
         <br>
         $$ y:   u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} + w\frac{\partial v}{\partial z} = -\frac{1}{\rho}\frac{\partial P}{\partial y} + \nu\left(\frac{\partial ^2 v}{\partial ^2 x} + \frac{\partial ^2 v}{\partial ^2 y} + \frac{\partial ^2 v}{\partial ^2 z} \right)$$
         <br>
         $$ z:   u\frac{\partial w}{\partial x} + v\frac{\partial w}{\partial y} + w\frac{\partial w}{\partial z} = -\frac{1}{\rho}\frac{\partial P}{\partial z} + \nu\left(\frac{\partial ^2 w}{\partial ^2 x} + \frac{\partial ^2 w}{\partial ^2 y} + \frac{\partial ^2 w}{\partial ^2 z} \right)$$
+        </div>
         
         </p>
 
@@ -75,6 +77,7 @@
         <p>The inlet flow velocity was set to <i> 0.01 m/s </i> in the length direction (z) and the internal flow field was initialized with the same velocity </p>
         <br>
         <h4>Boundary Conditions</h4>
+        <div class="table-container">
         <table border="1">
             <tr>
                 <th>Parameter</th>
@@ -95,6 +98,7 @@
                 <td>zeroGradient</td>
             </tr>
         </table>
+        </div>
 
         <br>
         <p>The <b>steady-state</b> simulation was run for 1000 iterations using the SIMPLE algorithm.</p>

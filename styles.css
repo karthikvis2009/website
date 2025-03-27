@@ -149,17 +149,34 @@ input[type="text"] {
     animation-timeline: view();
     animation-range: entry 0% cover 20%;
 }
+.contentSection img ,
+img{
+    display: block; /* Ensure proper rendering */
+    max-width: 100%; /* Ensure it scales within the container */
+    width: 50rem; /* Set a fixed width */
+    height: auto; /* Maintain aspect ratio */
+    margin: 2rem auto; /* Center the image */
+    border: 0.1rem solid var(--fg);
+}
 
-table {
+.table-container{
+    width: 100%;
+    overflow-x: auto;
+}
+.contentSection table{
     text-align: center;
     margin: auto;
+    max-width: 100%;
+    height: auto;
     th {
         padding: 1em;
         background: #323437;
         color: #cecece;
+        height: 2.5em;
     }
     td {
         padding: 1em;
+        height: 1em;
     }
 }
 
@@ -178,14 +195,14 @@ a:visited{
     color: var(--yellow);
 }
 
-.case-info-img {
-    display: block; /* Ensure proper rendering */
-    max-width: 50rem; /* Ensure it scales within the container */
-    width: 50rem; /* Set a fixed width */
-    height: auto; /* Maintain aspect ratio */
-    margin: 2rem auto; /* Center the image */
-    border: 0.1rem solid var(--fg);
-}
+/* .case-info-img { */
+/*     display: block; /1* Ensure proper rendering *1/ */
+/*     max-width: 100%; /1* Ensure it scales within the container *1/ */
+/*     width: 50rem; /1* Set a fixed width *1/ */
+/*     height: auto; /1* Maintain aspect ratio *1/ */
+/*     margin: 2rem auto; /1* Center the image *1/ */
+/*     border: 0.1rem solid var(--fg); */
+/* } */
 
 #btd {
     display: inline-block;
@@ -202,4 +219,13 @@ a:visited{
     transform: scale(1.1);
     border: 0.1rem solid var(--green);
     box-shadow: 0rem 0rem 0.5rem var(--green);
+}
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    .math-responsive mjx-container {
+        overflow-x: auto;
+        display: block;
+        max-width: 100%;
+        white-space: normal;
+        padding: 1rem;
+    }
 }

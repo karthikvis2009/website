@@ -45,7 +45,7 @@
         <p> The resulting mesh had 11308 points and 11064 prism cells. </p>
         <p> The mesh was refined near the cylinder surface to accurately capture the drag and lift effects at the cylinder wall. </p>
         <p> The mesh along with the patch names can be viewed in the figure below.</p>
-        <img src="../assets/fpcLam/mesh.png" alt="normalized residual plot" style="width:50rem">
+        <img class="case-info-img" src="../assets/fpcLam/mesh.png" alt="normalized residual plot" style="width:50rem">
         <p> The generated mesh (with extension .msh) was used in OpenFOAM using the <b>gmshToFoam</b> utility and the patch types were changed in <i>./constant/polyMesh/boundary</i> file. </p>
 
         </section>
@@ -58,10 +58,11 @@
         $$ \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0$$
         <br>
         The transient 2D incompressible momentum conservation equations in x & y directions are <br>
-
+        <div class="math-responsive">
         $$ x: \frac{\partial u}{\partial t} + u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} = -\frac{1}{\rho}\frac{\partial P}{\partial x} + \nu\left(\frac{\partial ^2 u}{\partial ^2 x} + \frac{\partial ^2 u}{\partial ^2 y} \right)$$
         <br>
         $$ y: \frac{\partial v}{\partial t} + u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} = -\frac{1}{\rho}\frac{\partial P}{\partial y} + \nu\left(\frac{\partial ^2 v}{\partial ^2 x} + \frac{\partial ^2 v}{\partial ^2 y} \right)$$
+        </div>
         
         </p>
 
@@ -73,6 +74,7 @@
         <br>
 
         <h4>Boundary Conditions</h4>
+        <div class="table-container">
         <table border="1">
             <tr>
                 <th>Parameter</th>
@@ -99,13 +101,14 @@
                 <td>zeroGradient</td>
             </tr>
         </table>
+        </div>
 
         <br>
         <p>The <b>transient</b> simulation was run for 350 s with a $\Delta T$ of 0.0001 using the PIMPLE (PISO/SIMPLE) algorithm.</p>
         <p>The PISO algorithm with 3 Non-orthogonal correctors and 2 correctors was used.</p>
         <br>
         <p> A plot of normalised residuals is shown below<p>
-        <img src="../assets/fpcLam/residuals.png" alt="normalized residual plot" style="width:50rem">
+        <img class="case-info-img" src="../assets/fpcLam/residuals.png" alt="normalized residual plot" style="width:50rem">
         <p> From the residual plot, it can be seen that the residuals start oscillating and the solution can be said to be sufficiently converged since the residuals don't decrease anymore</p>
         </section>
 
@@ -114,7 +117,7 @@
         <p>Results were validated against the aforementioned reference paper.</p>
         <p>Drag ($C_d$) and Lift ($C_l$) coefficients were monitored during the simulations as a measure for convergence.</p>
         <p>A plot of these coefficients for the simulation time is shown below.</p>
-        <img src="../assets/fpcLam/coeffs.png" alt="normalized residual plot" style="width:50rem">
+        <img class="case-info-img" src="../assets/fpcLam/coeffs.png" alt="normalized residual plot" style="width:50rem">
         <p> From the plot, it can be observed that the system exhibits a steady oscillating pattern after the initial unsteadiness from about 200s. </p>
         <p> Time range of <strong>250-350s</strong> was selected for computing the average values for the coefficients to validate against the reference. </p>
         <p> The mean drag coefficient ($\overline C_d$) was calculated for the above time range and the <strong>root mean squared </strong> value of the lift coefficient ($C_{l,rms}$) was also calculated and these values are given in the table below along with the reference values. </p>
