@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Simualation of a Fluidized Bed</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body id = "case-info">
+    <header class="data-header">
+        <h1>Simulation of a fluidized bed</h1>
+    </header>
+    <main style="padding: 1em">
+        <img class=case-info-img src="../assets/fluidizedBed/fb.gif" alt="fluidized bed gif">
+        <hr>
+        <p><strong>Description:</strong>Transient turbulent Euler-Euler simulation of a fluidized bed</p>
+        <p><strong>Reference Paper:</strong> <a href="https://www.sciencedirect.com/science/article/abs/pii/S0009250905004653">Experimental and computational study of gas-solid fluidized bed hydrodynamics</a></p>
+
+        <hr>
+        <section class="contentSection">
+        <h3>Model</h3>
+        <p>The model consists of a rectangular domain of width <i>0.28m</i>, height <i>1m</i> and depth <i>0.025m</i>.</p>
+        <p>The initial solids height was <i>0.4m</i> with an initial solid fraction ($\alpha_s$) of <i>0.6</i> with maximum solid fraction of <i>0.63</i>.</p>
+        </section>
+
+
+        <section class="contentSection">
+        <h3>Meshing</h3>
+        <p> Meshing was done using blockMesh.<p>
+        <p> The resulting mesh had 498443 points and 448000 hexahedral cells. </p>
+        </section>
+
+        <section class="contentSection">
+        <h3>Physics</h3>
+        <p>The model was simulated using the 2-phase Euler-Euler model which assumes continuum mechanics for both fluid (in this case gas) and solid phases.</p>
+        <p>The conservation equations (mass and momentum) for both the phases and are given below. </p>
+
+        <h4>Mass conservation equations</h4>
+        $$\frac{\partial}{\partial t} \cdot (\alpha_g\cdot\rho_g) + \nabla\cdot(\alpha_g\cdot\rho_g\overrightarrow v_g) = 0$$
+        $$\frac{\partial}{\partial t} \cdot (\alpha_s\cdot\rho_s) + \nabla\cdot(\alpha_s\cdot\rho_s\overrightarrow v_s) = 0$$
+
+        <h4>Momentum conservation equations</h4>
+        <div class="math-responsive">
+        $$\frac{\partial}{\partial t}\cdot(\alpha_g\cdot\rho_g\cdot\overrightarrow v_g) + \nabla\cdot\left(\alpha_g\cdot\rho_g\cdot\overrightarrow v_g^2\right) = -\alpha_g\cdot\nabla p + \nabla\cdot\overline{\overline{\tau_g}} + \alpha_g\cdot\rho_g\cdot\overrightarrow g + K_{gs}\cdot(\overrightarrow v_g - \overrightarrow v_s)$$
+        $$\frac{\partial}{\partial t}\cdot(\alpha_s\cdot\rho_s\cdot\overrightarrow v_s) + \nabla\cdot\left(\alpha_s\cdot\rho_s\cdot\overrightarrow v_s^2\right) = -\alpha_s\cdot\nabla p - \nabla p_s + \nabla\cdot\overline{\overline{\tau_s}} + \alpha_s\cdot\rho_s\cdot\overrightarrow g + K_{gs}\cdot(\overrightarrow v_g - \overrightarrow v_s)$$
+        </div>
+
+        <h4>Energy conservation</h4>
+        <div class="math-responsive">
+        $$\frac{3}{2} \cdot \left[\frac{\partial}{\partial t} \cdot(\rho_s\alpha_s\Theta_s) + \nabla\cdot(\rho_s\cdot\alpha_s\cdot\overrightarrow v_s \cdot \Theta_s)\right] = (-p_s\overline{\overline{I}}+\overline{\overline{\tau_s}}):\nabla\cdot\overrightarrow v_s + \nabla \cdot(k_{\Theta_s}\cdot\nabla\Theta_s) - \gamma_{\Theta_s}$$
+        </div>
+        <br>
+        <p>RAS models were used for computing the turbulence in both the phases. </p>
+        <p>$k-\epsilon$ model was used for closure of turbulence stress in the gas phase</p>
+        <p>For the solid phase, <strong>Kinetic theory of dense/granular flows (KTGF)</strong> was used to close the momentum equations.</p>
+        <p> The table below gives information about the models used for closure of the equations </p>
+        <div class="table-container">
+        <table border="1">
+            <tr>
+                <th>Closure</th>
+                <th>Model</th>
+            </tr>
+            <tr>
+                <td> Momentum drag exchange ($K_{gs}$)</td>
+                <td> GidaspowErgunWenYu</td>
+            </tr>
+            <tr>
+                <td> Heat transfer</td>
+                <td> RanzMarshall</td>
+            </tr>
+            <tr>
+                <td>Granular viscosity</td>
+                <td>Gidaspow</td>
+            </tr>
+            <tr>
+                <td>Granular conductivity</td>
+                <td>Gidaspow</td>
+            </tr>
+            <tr>
+                <td>Granular pressure</td>
+                <td>Lun</td>
+            </tr>
+            <tr>
+                <td>Frictional Stress</td>
+                <td>JohnsonJacksonSchaeffer</td>
+            </tr>
+            <tr>
+                <td>Radial model</td>
+                <td>SinclairJackson</td>
+            </tr>
+        </table>
+        </div>
+        <br>
+
+
+        </section>
+        <section class="contentSection">
+        <h3>Simulation</h3>
+        <p>The case was simulated using the <strong>multiphaseEuler</strong> solver in OpenFOAM.</p>
+        <p> </p>
+
+
+        <p> Some important parameters with their values are given in the table below</p>
+        <div class="table-container">
+        <table border="1">
+            <tr>
+                <th> Parameter </th>
+                <th> Value </th>
+                <th> Comment </th>
+            </tr>
+            <tr>
+                <td> Particle density, $\rho_s$ </td>
+                <td> 2500 $kg/m^3$</td>
+                <td> Glass beads </td>
+            </tr>
+
+            <tr>
+                <td> Gas density, $\rho_g$</td>
+                <td> 1.225 $kg/m^3$</td>
+                <td> Air </td>
+            </tr>
+
+            <tr>
+                <td> Mean particle diameter, $d_s$</td>
+                <td> 275 $\mu m$</td>
+                <td> Uniform distribution</td>
+            </tr>
+
+            <tr>
+                <td> Restitution coefficient, $e_{ss}$</td>
+                <td> 0.95 </td>
+                <td> Range in literature 0.9-0.99</td>
+            </tr>
+
+            <tr>
+                <td> Specularity coefficient, $e_{sp}$</td>
+                <td> 0.2 </td>
+                <td> For wall condition of particles</td>
+            </tr>
+
+            <tr>
+                <td>Initial solids packing, $\epsilon_{s0}$</td>
+                <td> 0.6 </td>
+                <td> fixed value</td>
+            </tr>
+
+            <tr>
+                <td>Max solids packing, $\epsilon_{s,max}$</td>
+                <td> 0.63 </td>
+                <td> fixed value</td>
+            </tr>
+
+            <tr>
+                <td>Superficial gas velocity, U</td>
+                <td> 0.38 m/s </td>
+                <td> ~0.5 - ~6 $U_{mf}$</td>
+            </tr>
+        </table>
+        </div>
+        <br>
+
+        <h4>Boundary Conditions</h4>
+        <div class="table-container">
+        <table border="1">
+            <tr>
+                <th>Parameter</th>
+                <th>Internal Field</th>
+                <th>Inlet</th>
+                <th>Outlet</th>
+                <th>Walls</th>
+            </tr>
+            <tr>
+                <td><b>U.particles</b></td>
+                <td>uniform (0 0 0)</td>
+                <td>interstitialInletVelocity uniform (0 0.38 0); alpha.air </td>
+                <td>pressureInletOutletVelocity; phi.air</td>
+                <td>noSlip</td>
+            </tr>
+            <tr>
+                <td><b>U.air</b></td>
+                <td>uniform (0 0 0)</td>
+                <td>fixedValue uniform (0 0 0)</td>
+                <td>fixedValue uniform (0 0 0)</td>
+                <td>JohnsonJacksonParticleSlip</td>
+            </tr>
+            <tr>
+                <td><b>Pressure (p_rgh)</b></td>
+                <td>uniform 1e5</td>
+                <td>fixedFluxPressure value = 1e5</td>
+                <td>prghPressure; value = 1e5</td>
+                <td>fixedFluxPressure; value = 1e5</td>
+            </tr>
+            <tr>
+                <td><b>alpha.air</b></td>
+                <td>set using setFields</td>
+                <td>zeroGradient</td>
+                <td>zeroGradient</td>
+                <td>zeroGradient</td>
+            </tr>
+            <tr>
+                <td><b>alpha.particles</b></td>
+                <td>set using setFields</td>
+                <td>zeroGradient</td>
+                <td>zeroGradient</td>
+                <td>zeroGradient</td>
+            </tr>
+
+            <tr>
+                <td><b>Theta.particles</b></td>
+                <td>uniform 0</td>
+                <td>fixedValue; value = 1e-4</td>
+                <td>zeroGradient</td>
+                <td>JohnsonJacksonParticleTheta</td>
+            </tr>
+
+            <tr>
+                <td><b>k.air</b></td>
+                <td>uniform 1</td>
+                <td>fixedValue; value = 1</td>
+                <td>inletOutlet</td>
+                <td>kqRWallFunction</td>
+            </tr>
+
+            <tr>
+                <td><b>epsilon.air</b></td>
+                <td>uniform 10</td>
+                <td>fixedValue; value = 10</td>
+                <td>inletOutlet</td>
+                <td>epsilonWallFunction</td>
+            </tr>
+        </table>
+        </div>
+
+        <br>
+        <p>The <b>transient</b> simulation was run for 5s with an adaptive $\Delta T$ of 0.0001 using the PIMPLE (PISO/SIMPLE) algorithm.</p>
+        <p>The PISO algorithm with 3 Non-orthogonal correctors and 2 correctors was used  along with drag correction.</p>
+        <br>
+        </section>
+
+        <section class="contentSection">
+        <h3>Validation</h3>
+        <p>Results were validated against the aforementioned reference paper.</p>
+        <p>The important parameters for validation were - the expansion ration $\frac{H}{H_0}$ & pressure drop $\Delta p$.</p>
+        <img src="../assets/fluidizedBed/val.png" alt="normalized residual plot" style="width:50rem">
+        <p>Since the system exhibited oscillatory behaviour after about 2s, time-range of <i> 3 - 5s </i> was taken for computing the mean values </p>
+        <p> The mean expansion ration and pressure drop were calculated for the above time range and these values are given in the table below along with the reference values. </p>
+        <div class="table-container">
+        <table border="1">
+            <tr>
+                <th>Parameter</th>
+                <th>Simulation</th>
+                <th>Reference</th>
+            </tr>
+            <tr>
+                <td> $\frac{H}{H_0}$ </td>
+                <td> 1.46 </td>
+                <td> 1.49 </td> 
+            </tr>
+
+            <tr>
+                <td> $\Delta p$ (Pa)</td>
+                <td> 5245 </td>
+                <td> 5428 </td> 
+            </tr>
+        </table>
+        </div>
+        <br>
+        <p> From the above table, it can be inferred that the simulation is successfully validated and the fluidization can be successfully observed. </p>
+
+
+        </section>
+        <br>
+        <a id="btd" href="../index.html">Back to Database</a>
+    </main>
+</body>
+</html>

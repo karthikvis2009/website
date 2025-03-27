@@ -17,6 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Laminar flow past a cylinder", 
             description: "2D laminar flow past a cylinder", 
             image: "assets/fpcLam/fpcLam.png",
+        },
+
+        { 
+            name: "Fluidized bed", 
+            description: "Simulation of a fluidized bed", 
+            image: "assets/fluidizedBed/fb.png",
         }
     ];
 
