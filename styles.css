@@ -11,6 +11,7 @@
     --yellow: #e3c78a;
 }
 
+html,
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -18,12 +19,10 @@ body {
     text-align: center;
     background-color: var(--bg);
     color: var(--fg);
+    display: flex;
+    height: 100%;
+    flex-direction: column;
 }
-
-/* .main-header{ */
-/*     background-image: linear-gradient(to-bottom, var(--black), var(--bg)); */
-/*     text-align: center; */
-/* } */
 
 @keyframes title-blink {
     from {
@@ -35,12 +34,15 @@ body {
 }
 
 .main-header {
-    background-image: url("assets/wp.jpg");
-    /* background-image: linear-gradient(to right, var(--greenBt), var(--black), var(--bg), var(--black), var(--greenBt)); */
+    /* background-image: url("assets/wp.jpg"); */
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                url("assets/wp.jpg") no-repeat center center;
+    background-size: cover;
+
     color: #bdbdbd;
     padding: 1rem;
     text-align: center;
-    max-height: 5%;
+    max-height: 20%;
 
     h1{
         font-size: 42px;
@@ -63,6 +65,43 @@ body {
         animation-direction: alternate;
         animation-iteration-count: infinite;
     }
+}
+
+main{
+    flex: 1;
+}
+
+
+.main-footer {
+
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                url("assets/wp.jpg") no-repeat center center;
+    background-size: cover;
+    display: block;
+    justify-content: space-between; /* Pushes items to opposite sides */
+    align-items: center; /* Aligns items vertically */
+    padding: 0.5rem;
+    color: #bdbdbd; /* Adjust text color */
+    max-height: 10%;
+}
+
+.footerContent {
+    margin: 0; /* Remove default margins */
+    font-family: "Font Awesome";
+    /* padding: 0 0.5rem 0 0; */
+    font-size: 1.2rem;
+}
+
+.footerContact {
+    flex-direction: column; /* Stack contact info vertically */
+    align-items: flex-end; /* Aligns contact info to the right */
+    margin: 0;
+    transition: transform 0.3s;
+    padding: 0.5rem;
+}
+
+.footerContact:hover{
+    transform: translateY(-0.3rem);
 }
 
 input[type="text"] {
@@ -267,5 +306,19 @@ a:visited{
         max-width: 100%;
         white-space: normal;
         padding: 1rem;
+    }
+
+    .main-footer {
+
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                    url("assets/wp.jpg") no-repeat center center;
+        background-size: cover;
+
+        display: block;
+        justify-content: space-between; /* Pushes items to opposite sides */
+        align-items: center; /* Aligns items vertically */
+        padding: 1rem 0rem 2rem 0;
+        color: #bdbdbd; /* Adjust text color */
+        max-height: 10%;
     }
 }
