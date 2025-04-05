@@ -156,7 +156,7 @@ input[type="text"] {
 
 .testcase:hover{
     box-shadow: 0rem 0rem 1rem rgba(54, 198, 146, 0.8);
-    transform: scale(1.02);
+    transform: scale(1.04);
 }
 
 .testcase img {
