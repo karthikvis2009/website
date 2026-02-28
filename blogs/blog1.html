@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Introduction to CFD Analysis | OpenFOAM Portfolio</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;700&amp;family=Space+Grotesk:wght@700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --terminal-green: #00ff41;
+            --terminal-blue: #00f2ff;
+            --bg-deep: #020408;
+        }
+        @layer base {
+            body {
+                @apply bg-[var(--bg-deep)] text-slate-300 font-['Inter'] selection:bg-[var(--terminal-green)] selection:text-black;
+            }
+            h1, h2, h3, .nav-logo {
+                @apply font-['Space_Grotesk'] tracking-tight;
+            }
+            .mono-label {
+                @apply font-['JetBrains_Mono'] uppercase tracking-widest text-[10px];
+            }
+            .mono-data {
+                @apply font-['JetBrains_Mono'];
+            }
+        }
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 255, 0, 0.03));
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .data-stream-border {
+            border: 1px solid rgba(0, 255, 65, 0.1);
+            position: relative;
+        }
+        .data-stream-border::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; width: 10px; height: 10px;
+            border-top: 2px solid var(--terminal-green);
+            border-left: 2px solid var(--terminal-green);
+        }
+        .data-stream-border::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; right: -1px; width: 10px; height: 10px;
+            border-bottom: 2px solid var(--terminal-green);
+            border-right: 2px solid var(--terminal-green);
+        }
+        .prose-dark {
+            @apply prose prose-invert max-w-none;
+            @apply prose-headings:font-['Space_Grotesk'] prose-headings:text-white;
+            @apply prose-p:text-slate-300 prose-p:leading-relaxed;
+            @apply prose-a:text-[var(--terminal-green)] hover:prose-a:text-white prose-a:transition-colors;
+            @apply prose-strong:text-white prose-strong:font-bold;
+            @apply prose-code:text-[var(--terminal-blue)] prose-code:font-['JetBrains_Mono'] prose-code:bg-black/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-sm prose-code:before:content-none prose-code:after:content-none;
+            @apply prose-pre:bg-slate-900 prose-pre:border prose-pre:border-[var(--terminal-green)]/20 prose-pre:rounded-none;
+            @apply prose-img:border prose-img:border-[var(--terminal-green)]/20;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+    <div class="crt-overlay"></div>
+    <nav class="fixed w-full z-50 border-b border-[var(--terminal-green)]/20 bg-black/80 backdrop-blur-xl">
+        <div class="max-w-[1600px] mx-auto px-4 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="flex items-center space-x-4 group">
+                    <span
+                        class="material-symbols-outlined text-[var(--terminal-green)] group-hover:animate-pulse">flowsheet</span>
+                    <span
+                        class="nav-logo font-bold tracking-[0.1em] text-sm md:text-lg text-white group-hover:text-[var(--terminal-green)] transition-colors">OPENFOAM_WALKTHROUGHS</span>
+                </a>
+            </div>
+            <div class="flex items-center space-x-6 mono-label text-[var(--terminal-green)]">
+                <span class="hidden md:block">STATUS: READING_LOG</span>
+                <span class="hidden md:block">CLEARANCE: PUBLIC</span>
+                <div class="h-2 w-2 rounded-full bg-[var(--terminal-green)] shadow-[0_0_8px_var(--terminal-green)]">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="flex pt-14 min-h-screen">
+        <aside
+            class="w-64 border-r border-[var(--terminal-green)]/10 hidden lg:flex flex-col p-6 sticky top-14 h-[calc(100vh-3.5rem)] sidebar-scroller overflow-y-auto">
+            <div class="space-y-8">
+                <div>
+                    <h4 class="mono-label text-slate-500 mb-4">INDEX</h4>
+                    <ul class="space-y-3 text-sm font-medium">
+                        <li><a class="flex items-center space-x-2 hover:text-[var(--terminal-green)] transition-colors group"
+                                href="../index.html"><span
+                                    class="material-symbols-outlined text-sm opacity-50">home</span><span>Home</span></a>
+                        </li>
+                        <li><a class="flex items-center space-x-2 hover:text-[var(--terminal-green)] transition-colors"
+                                href="../cases/cases.html"><span
+                                    class="material-symbols-outlined text-sm opacity-50">terminal</span><span>Cases</span></a>
+                        </li>
+                        <li><a class="flex items-center space-x-2 text-[var(--terminal-green)] transition-colors text-[var(--terminal-blue)]"
+                                href="blogs.html"><span
+                                    class="material-symbols-outlined text-sm">menu_book</span><span>Blogs</span></a>
+                        </li>
+                        <li><a class="flex items-center space-x-2 hover:text-[var(--terminal-green)] transition-colors"
+                                href="../about.html"><span
+                                    class="material-symbols-outlined text-sm opacity-50">person_outline</span><span>About</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-auto pt-8">
+                <a href="blogs.html"
+                    class="flex items-center space-x-2 text-xs font-bold text-slate-400 hover:text-[var(--terminal-green)] transition-colors mono-label">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    <span>RETURN_TO_INDEX</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-4 md:p-8 lg:p-12 relative overflow-hidden">
+            <!-- Background element -->
+            <div
+                class="absolute top-0 right-0 w-full h-[400px] bg-gradient-to-b from-[var(--terminal-green)]/5 to-transparent pointer-events-none">
+            </div>
+
+            <article class="max-w-3xl mx-auto relative z-10 data-stream-border bg-black/60 p-6 md:p-10 lg:p-16">
+                <!-- Article Header -->
+                <header class="mb-12 border-b border-[var(--terminal-green)]/20 pb-8">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <span
+                            class="mono-label text-[var(--terminal-green)] bg-[var(--terminal-green)]/10 px-2 py-1 font-bold">BASICS</span>
+                        <span class="mono-label text-slate-400">THEORY</span>
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">Introduction to CFD
+                        Analysis</h1>
+
+                    <div
+                        class="flex items-center justify-between flex-wrap gap-4 pt-4 border-t border-[var(--terminal-green)]/10">
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-slate-800 border-2 border-[var(--terminal-green)] flex items-center justify-center">
+                                <span
+                                    class="material-symbols-outlined text-[var(--terminal-green)] text-sm">person</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-sm font-bold text-white">SYS_ADMIN</span>
+                                <span class="text-xs text-[var(--terminal-green)] mono-data">2024-10-14</span>
+                            </div>
+                        </div>
+                        <div class="mono-data text-xs text-[var(--terminal-blue)]">
+                            READ_TIME: 5 MIN
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Article Content -->
+                <div class="prose-dark flow-root">
+                    <p class="lead text-xl text-slate-300">
+                        Computational Fluid Dynamics (CFD) is the art of replacing analytical equations governing fluid
+                        flow with numerical equivalents, allowing us to predict the performance of everything from
+                        static mixers to aerodynamic wing profiles.
+                    </p>
+
+                    <h2>The Foundation: Navier-Stokes</h2>
+                    <p>
+                        At the core of almost all CFD problem solving are the Navier-Stokes equations. These partial
+                        differential equations describe the motion of viscous fluid substances. They represent the
+                        conservation of momentum and mass for Newtonian fluids. Solving these analytically for complex
+                        geometries is impossible, which is where CFD comes in.
+                    </p>
+
+                    <h3>Basic Workflow</h3>
+                    <p>A typical CFD analysis follows a rigorous three-step process:</p>
+                    <ol>
+                        <li><strong>Pre-processing:</strong> This involves creating the geometry, cleaning it up,
+                            and—most crucially—generating the mesh. A good mesh is half the battle won. In OpenFOAM,
+                            utilities like blockMesh and snappyHexMesh are frequently used here.</li>
+                        <li><strong>Solving:</strong> Configuring the physical models, boundary conditions, and choosing
+                            the right solver (e.g., icoFoam for transient laminar, simpleFoam for steady turbulent).
+                        </li>
+                        <li><strong>Post-processing:</strong> Analyzing the results using tools like ParaView to
+                            visualize streamlines, pressure contours, and extract quantitative data like drag
+                            coefficients.</li>
+                    </ol>
+
+                    <div class="bg-blue-500/10 border-l-4 border-blue-500 p-4 my-8">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="material-symbols-outlined text-blue-400 text-sm">info</span>
+                            <span class="mono-label text-blue-400 font-bold">PRO_TIP</span>
+                        </div>
+                        <p class="text-sm m-0 text-slate-300">Never trust a CFD result you haven't validated against
+                            experimental data or analytical solutions when possible. Garbage in, garbage out.</p>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        CFD is an incredibly powerful tool that bridges the gap between theoretical fluid dynamics and
+                        practical engineering application. As we dive into specific case studies in this portfolio,
+                        we'll explore exactly how these principles are applied in OpenFOAM.
+                    </p>
+                </div>
+
+                <!-- Footer / Next Action -->
+                <footer
+                    class="mt-16 pt-8 border-t border-[var(--terminal-green)]/20 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <span class="text-xs text-slate-500 mono-data">END_OF_FILE</span>
+                    <a href="../cases/cases.html"
+                        class="bg-[var(--terminal-green)] text-black px-6 py-3 font-bold mono-label hover:brightness-110 transition-all inline-flex items-center space-x-2">
+                        <span>VIEW_PRACTICAL_CASES</span>
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
+                </footer>
+            </article>
+        </main>
+    </div>
+
+    <div class="fixed inset-0 z-[-1] opacity-20 pointer-events-none overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--terminal-green)]/5 to-transparent">
+        </div>
+        <div
+            class="absolute inset-0 bg-[linear-gradient(to_right,#10b98110_1px,transparent_1px),linear-gradient(to_bottom,#10b98110_1px,transparent_1px)] bg-[size:40px_40px]">
+        </div>
+    </div>
+</body>
+
+</html>

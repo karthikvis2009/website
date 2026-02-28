@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Laminar flow past a cylinder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100;400;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+        :root {
+            --terminal-green: #00ff41;
+            --terminal-blue: #00f2ff;
+            --bg-deep: #020408;
+            --scanline-color: rgba(0, 255, 65, 0.03);
+        }
+</style>
+</head>
+<body class="bg-[var(--bg-deep)] text-slate-300 font-['Inter'] selection:bg-[var(--terminal-green)] selection:text-black overflow-x-hidden">
+    <div class="crt-overlay"></div>
+<nav class="fixed w-full z-50 border-b border-[var(--terminal-green)]/20 bg-black/80 backdrop-blur-xl">
+<div class="max-w-[1600px] mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-[var(--terminal-green)] animate-pulse">flowsheet</span>
+<span class="nav-logo font-bold tracking-[0.1em] text-sm md:text-lg text-white">OPENFOAM_WALKTHROUGHS // CASE_STUDIES</span>
+</div>
+<div class="flex items-center space-x-6 mono-label text-[var(--terminal-green)]">
+<span class="hidden md:block">STATUS: DOCUMENTING_CASES</span>
+<span class="hidden md:block">CLEARANCE: PUBLIC_OPEN_SOURCE</span>
+<div class="h-2 w-2 rounded-full bg-[var(--terminal-green)] shadow-[0_0_8px_var(--terminal-green)]"></div>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-12 px-6 max-w-4xl mx-auto space-y-8 bg-[var(--bg-deep)] text-slate-300 font-['Inter']">
+    <header class="border-b border-[var(--terminal-green)]/20 pb-6 mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">Simulation of flow past a cylinder</h1>
+    </header>
+    <main style="padding: 1em">
+        <img class=case-info-img src="../assets/fpcLam/fpcLam.gif" alt="2D cylinder gif">
+        <hr class="border-[var(--terminal-green)]/20 my-8">
+        <p class="text-slate-400 mb-4 leading-relaxed"><strong>Description:</strong> 2D flow past a circular cylinder in the L3 (laminar vortex shedding) regime</p>
+        <p class="text-slate-400 mb-4 leading-relaxed"><strong>Reference Paper:</strong> <a href="https://www.researchgate.net/publication/258950668_Numerical_Study_and_Physical_Analysis_of_the_Pressure_and_Velocity_Field_in_the_Near_Wake_of_a_Circular_Cylinder">Numerical Study and Phycial Analysis of the pressure and velocity field near wake of a circular cylinder</a></p>
+        <hr class="border-[var(--terminal-green)]/20 my-8">
+        <section class="contentSection">
+        <h3 class="text-xl font-bold text-white mt-8 mb-4 border-l-2 border-[var(--terminal-green)] pl-4">Model</h3>
+        <p class="text-slate-400 mb-4 leading-relaxed">The model consists of a rectangular domain of length 50m and height 40m.<br>
+        <p class="text-slate-400 mb-4 leading-relaxed">The z-direction (empty) width was taken to be 1m. </p>
+        <br>
+        The cylinder is at 20m from the inlet boundary and in the middle of bottom and top boundaries. <b>
+        </p>
+        <p class="text-slate-400 mb-4 leading-relaxed"> The kinematic viscosity <b>($\nu$)</b> was set to <b>0.01</b>.</p>
+        <p class="text-slate-400 mb-4 leading-relaxed"> The reference density used for the force-coefficients calculations ($C_d$ & $C_l$) was 1.</p>
+        </section>
+
+
+        <section class="contentSection">
+        <h3 class="text-xl font-bold text-white mt-8 mb-4 border-l-2 border-[var(--terminal-green)] pl-4">Meshing</h3>
+        <p class="text-slate-400 mb-4 leading-relaxed"> Meshing was done using Gmsh.<p class="text-slate-400 mb-4 leading-relaxed">
+        <p class="text-slate-400 mb-4 leading-relaxed"> The resulting mesh had 11308 points and 11064 prism cells. </p>
+        <p class="text-slate-400 mb-4 leading-relaxed"> The mesh was refined near the cylinder surface to accurately capture the drag and lift effects at the cylinder wall. </p>
+        <p class="text-slate-400 mb-4 leading-relaxed"> The mesh along with the patch names can be viewed in the figure below.</p>
+        <img class="case-info-img" src="../assets/fpcLam/mesh.png" alt="normalized residual plot" style="width:50rem">
+        <p class="text-slate-400 mb-4 leading-relaxed"> The generated mesh (with extension .msh) was used in OpenFOAM using the <b>gmshToFoam</b> utility and the patch types were changed in <i>./constant/polyMesh/boundary</i> file. </p>
+
+        </section>
+
+        <section class="contentSection">
+        <h3 class="text-xl font-bold text-white mt-8 mb-4 border-l-2 border-[var(--terminal-green)] pl-4">Physics</h3>
+        <p class="text-slate-400 mb-4 leading-relaxed">
+        The <i>2D incompressible</i> Navier-Stokes equations were solved in OpenFOAM for a <i>laminar</i> flow case since for the simulation, Re = 100.<br>
+        The Mass conservation equation is given by <br>
+        $$ \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0$$
+        <br>
+        The transient 2D incompressible momentum conservation equations in x & y directions are <br>
+        <div class="math-responsive">
+        $$ x: \frac{\partial u}{\partial t} + u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} = -\frac{1}{\rho}\frac{\partial P}{\partial x} + \nu\left(\frac{\partial ^2 u}{\partial ^2 x} + \frac{\partial ^2 u}{\partial ^2 y} \right)$$
+        <br>
+        $$ y: \frac{\partial v}{\partial t} + u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} = -\frac{1}{\rho}\frac{\partial P}{\partial y} + \nu\left(\frac{\partial ^2 v}{\partial ^2 x} + \frac{\partial ^2 v}{\partial ^2 y} \right)$$
+        </div>
+        
+        </p>
+
+        </section>
+        <section class="contentSection">
+        <h3 class="text-xl font-bold text-white mt-8 mb-4 border-l-2 border-[var(--terminal-green)] pl-4">Simulation</h3>
+        <p class="text-slate-400 mb-4 leading-relaxed">The case was simulated using OpenFOAM.</p>
+        <p class="text-slate-400 mb-4 leading-relaxed">The inlet flow velocity was set to <i> 0.5 m/s </i> (corresponding to Re = 100) in the streamwise direction (x) and the internal flow field was initialized with the same velocity </p>
+        <br>
+
+        <h4 class="text-lg font-bold text-white mt-6 mb-2">Boundary Conditions</h4>
+        <div class="table-container">
+        <table border="1">
+            <tr>
+                <th class="p-2 border border-[var(--terminal-green)]/20 text-white bg-slate-900/50">Parameter</th>
+                <th class="p-2 border border-[var(--terminal-green)]/20 text-white bg-slate-900/50">Inlet</th>
+                <th class="p-2 border border-[var(--terminal-green)]/20 text-white bg-slate-900/50">Outlet</th>
+                <th class="p-2 border border-[var(--terminal-green)]/20 text-white bg-slate-900/50">bottom</th>
+                <th class="p-2 border border-[var(--terminal-green)]/20 text-white bg-slate-900/50">top</th>
+                <th class="p-2 border border-[var(--terminal-green)]/20 text-white bg-slate-900/50">cylinder</th>
+            </tr>
+            <tr>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400"><b>Velocity</b></td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">uniform (0 0 0.5)</td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">zeroGradient</td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">symmetry</td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">symmetry</td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">noSlip</td>
+            </tr>
+            <tr>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400"><b>Pressure</b></td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">zeroGradient</td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">uniform 0</td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">symmetry</td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">symmetry</td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400">zeroGradient</td>
+            </tr>
+        </table>
+        </div>
+
+        <br>
+        <p class="text-slate-400 mb-4 leading-relaxed">The <b>transient</b> simulation was run for 350 s with a $\Delta T$ of 0.0001 using the PIMPLE (PISO/SIMPLE) algorithm.</p>
+        <p class="text-slate-400 mb-4 leading-relaxed">The PISO algorithm with 3 Non-orthogonal correctors and 2 correctors was used.</p>
+        <br>
+        <p class="text-slate-400 mb-4 leading-relaxed"> A plot of normalised residuals is shown below<p class="text-slate-400 mb-4 leading-relaxed">
+        <img class="case-info-img" src="../assets/fpcLam/residuals.png" alt="normalized residual plot" style="width:50rem">
+        <p class="text-slate-400 mb-4 leading-relaxed"> From the residual plot, it can be seen that the residuals start oscillating and the solution can be said to be sufficiently converged since the residuals don't decrease anymore</p>
+        </section>
+
+        <section class="contentSection">
+        <h3 class="text-xl font-bold text-white mt-8 mb-4 border-l-2 border-[var(--terminal-green)] pl-4">Validation</h3>
+        <p class="text-slate-400 mb-4 leading-relaxed">Results were validated against the aforementioned reference paper.</p>
+        <p class="text-slate-400 mb-4 leading-relaxed">Drag ($C_d$) and Lift ($C_l$) coefficients were monitored during the simulations as a measure for convergence.</p>
+        <p class="text-slate-400 mb-4 leading-relaxed">A plot of these coefficients for the simulation time is shown below.</p>
+        <img class="case-info-img" src="../assets/fpcLam/coeffs.png" alt="normalized residual plot" style="width:50rem">
+        <p class="text-slate-400 mb-4 leading-relaxed"> From the plot, it can be observed that the system exhibits a steady oscillating pattern after the initial unsteadiness from about 200s. </p>
+        <p class="text-slate-400 mb-4 leading-relaxed"> Time range of <strong>250-350s</strong> was selected for computing the average values for the coefficients to validate against the reference. </p>
+        <p class="text-slate-400 mb-4 leading-relaxed"> The mean drag coefficient ($\overline C_d$) was calculated for the above time range and the <strong>root mean squared </strong> value of the lift coefficient ($C_{l,rms}$) was also calculated and these values are given in the table below along with the reference values. </p>
+        <div class="table-container">
+        <table border="1">
+            <tr>
+                <th class="p-2 border border-[var(--terminal-green)]/20 text-white bg-slate-900/50">Coefficient</th>
+                <th class="p-2 border border-[var(--terminal-green)]/20 text-white bg-slate-900/50">Simulation</th>
+                <th class="p-2 border border-[var(--terminal-green)]/20 text-white bg-slate-900/50">Reference</th>
+            </tr>
+            <tr>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400"> $C_d$ </td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400"> 1.3756 </td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400"> $1.386 \pm 0.015$ </td> 
+            </tr>
+
+            <tr>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400"> $C_l$ </td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400"> 0.231 </td>
+                <td class="p-2 border border-[var(--terminal-green)]/20 text-slate-400"> 0.25 </td> 
+            </tr>
+        </table>
+        </div>
+        <br>
+        <p class="text-slate-400 mb-4 leading-relaxed"> From the above table, it can be inferred that the simulation is successfully validated and the <strong> von Karmann vortex street</strong> can be observed behind the cylinder. </p>
+
+
+        </section>
+        <br>
+        <a id="btd" href="../index.html">Back to Database</a>
+    </main>
+</body>
+</html>
