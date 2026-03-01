@@ -34,8 +34,10 @@
 <nav class="fixed w-full z-50 border-b border-[var(--terminal-green)]/20 bg-black/80 backdrop-blur-xl">
 <div class="max-w-[1600px] mx-auto px-4 h-14 flex items-center justify-between">
 <div class="flex items-center space-x-4">
+<a href="../../index.html" class="flex items-center space-x-4 group">
 <span class="material-symbols-outlined text-[var(--terminal-green)] animate-pulse">flowsheet</span>
 <span class="nav-logo font-bold tracking-[0.1em] text-sm md:text-lg text-white">OPENFOAM_WALKTHROUGHS // CASE_STUDIES</span>
+</a>
 </div>
 <div class="flex items-center space-x-6 mono-label text-[var(--terminal-green)]">
 <span class="hidden md:block">STATUS: DOCUMENTING_CASES</span>
@@ -174,7 +176,12 @@
 
         </section>
         <br>
-        <a id="btd" href="../index.html">Back to Database</a>
+
+        <a href="../cases.html"
+            class="bg-[var(--terminal-green)] text-black px-6 py-3 font-bold mono-label hover:brightness-110 transition-all shadow-[0_0_15px_var(--terminal-green)] inline-flex items-center space-x-2">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            <span>BACK_TO_CASES</span>
+        </a>
     </main>
 </body>
 </html>

@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 article.innerHTML = `
                 <div class="flex flex-col md:flex-row">
                     <div class="md:w-1/3 relative border-b md:border-b-0 md:border-r border-[var(--terminal-green)]/10 aspect-video md:aspect-auto">
-                        <img alt="${tc.name}" class="w-full h-full object-cover holographic-overlay group-hover:opacity-60 transition-opacity" src="${tc.image}" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuBBhes3ff5Or-kZ_x5vVMJsBvHUh-yu26LTOOiXD_JSOW7H5GU6N19aN9gMePyClohQeqb5t2FzG_gAzL3d-4bkfxJa-dhyTJXw-XmDhF0_k1cSDrMBBBgg6R90TdLQUUMU4R-02OU5_y-KIkmCypw-MJuoyWiX0RGv4QtPaLdc2B6jpOaPdcfyCf1ST_Ca-Pvj758OwdVsYsjEJPNAuMJ4WvdjdwDN3eOApZlSR1Ilw2dlNBxGvkLMKZz0kkXaZUc1JIkesRdktA'"/>
+                        <img alt="${tc.name}" class="w-full h-full object-cover holographic-overlay group-hover:opacity-100 transition-opacity" src="${tc.image}" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuBBhes3ff5Or-kZ_x5vVMJsBvHUh-yu26LTOOiXD_JSOW7H5GU6N19aN9gMePyClohQeqb5t2FzG_gAzL3d-4bkfxJa-dhyTJXw-XmDhF0_k1cSDrMBBBgg6R90TdLQUUMU4R-02OU5_y-KIkmCypw-MJuoyWiX0RGv4QtPaLdc2B6jpOaPdcfyCf1ST_Ca-Pvj758OwdVsYsjEJPNAuMJ4WvdjdwDN3eOApZlSR1Ilw2dlNBxGvkLMKZz0kkXaZUc1JIkesRdktA'"/>
                         <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
                         <div class="absolute top-4 left-4 flex flex-col space-y-1">
                             <span class="mono-label bg-[var(--terminal-green)] text-black font-bold px-1.5 py-0.5 w-fit">CASE_STUDY_0${idx + 1}</span>
