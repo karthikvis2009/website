@@ -1,27 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
     const testCases = [
 
-        { 
-            name: "Kenics Helical Static Mixer", 
-            description: "CFD analysis of a Kenics helical static mixer", 
+        {
+            name: "Kenics Helical Static Mixer",
+            description: "CFD analysis of a Kenics helical static mixer",
             image: "assets/kenics/kenics6.png",
         },
 
-        { 
-            name: "Rising Bubble", 
-            description: "2D Simulation of a rising bubble", 
+        {
+            name: "Rising Bubble",
+            description: "2D Simulation of a rising bubble",
             image: "assets/risingBub/risingBub.png",
         },
 
-        { 
-            name: "Laminar flow past a cylinder", 
-            description: "2D laminar flow past a cylinder", 
+        {
+            name: "Laminar flow past a cylinder",
+            description: "2D laminar flow past a cylinder",
             image: "assets/fpcLam/fpcLam.png",
         },
 
-        { 
-            name: "Fluidized bed", 
-            description: "Simulation of a fluidized bed", 
+        {
+            name: "Fluidized bed",
+            description: "Simulation of a fluidized bed",
             image: "assets/fluidizedBed/fb.png",
         }
     ];
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <img alt="${tc.name}" class="w-full h-full object-cover holographic-overlay group-hover:opacity-60 transition-opacity" src="${tc.image}" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuBBhes3ff5Or-kZ_x5vVMJsBvHUh-yu26LTOOiXD_JSOW7H5GU6N19aN9gMePyClohQeqb5t2FzG_gAzL3d-4bkfxJa-dhyTJXw-XmDhF0_k1cSDrMBBBgg6R90TdLQUUMU4R-02OU5_y-KIkmCypw-MJuoyWiX0RGv4QtPaLdc2B6jpOaPdcfyCf1ST_Ca-Pvj758OwdVsYsjEJPNAuMJ4WvdjdwDN3eOApZlSR1Ilw2dlNBxGvkLMKZz0kkXaZUc1JIkesRdktA'"/>
                         <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
                         <div class="absolute top-4 left-4 flex flex-col space-y-1">
-                            <span class="mono-label bg-[var(--terminal-green)] text-black font-bold px-1.5 py-0.5 w-fit">CASE_STUDY_0${idx+1}</span>
+                            <span class="mono-label bg-[var(--terminal-green)] text-black font-bold px-1.5 py-0.5 w-fit">CASE_STUDY_0${idx + 1}</span>
                         </div>
                     </div>
                     <div class="md:w-2/3 p-6 md:p-8 flex flex-col">
@@ -88,4 +88,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     displayTestCases();
 
+    // Mobile Navigation Toggle
+    const logoToggle = document.getElementById('logo-toggle');
+    const sidebar = document.querySelector('aside');
+
+    if (logoToggle && sidebar) {
+        logoToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('sidebar-active');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('sidebar-active') && !sidebar.contains(e.target) && !logoToggle.contains(e.target)) {
+                sidebar.classList.remove('sidebar-active');
+            }
+        });
+
+        // Close sidebar when clicking a link (mobile)
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('sidebar-active');
+            });
+        });
+    }
 });

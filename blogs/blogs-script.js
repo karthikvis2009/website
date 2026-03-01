@@ -59,4 +59,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     displayBlogPosts();
+    // Mobile Navigation Toggle
+    const logoToggle = document.getElementById('logo-toggle');
+    const sidebar = document.querySelector('aside');
+
+    if (logoToggle && sidebar) {
+        logoToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('sidebar-active');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('sidebar-active') && !sidebar.contains(e.target) && !logoToggle.contains(e.target)) {
+                sidebar.classList.remove('sidebar-active');
+            }
+        });
+
+        // Close sidebar when clicking a link (mobile)
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('sidebar-active');
+            });
+        });
+    }
 });
