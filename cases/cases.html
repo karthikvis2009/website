@@ -13,7 +13,50 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
+
+    <!-- STANDARD CSS FALLBACK -->
+    <style>
+        :root {
+            --terminal-green: #00ff41;
+            --terminal-blue: #00f2ff;
+            --bg-deep: #020408;
+        }
+
+        body {
+            background-color: var(--bg-deep) !important;
+            color: #cbd5e1 !important;
+            font-family: 'Inter', sans-serif !important;
+            margin: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif !important;
+            color: white !important;
+        }
+    </style>
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'terminal-green': '#00ff41',
+                        'terminal-blue': '#00f2ff',
+                        'bg-deep': '#020408',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        space: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <script defer src="script.js"></script>
     <style type="text/tailwindcss">
         :root {

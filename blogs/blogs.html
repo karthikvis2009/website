@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>OpenFOAM Case Studies | Practical CFD Portfolio</title>
+    <title>OpenFOAM Blog | Technical CFD Guides</title>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
@@ -13,27 +13,70 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script defer src="blogs-script.js"></script>
-    <style type="text/tailwindcss">
+
+    <!-- STANDARD CSS FALLBACK -->
+    <style>
         :root {
             --terminal-green: #00ff41;
             --terminal-blue: #00f2ff;
             --bg-deep: #020408;
-            --scanline-color: rgba(0, 255, 65, 0.03);
         }
+
+        body {
+            background-color: var(--bg-deep) !important;
+            color: #cbd5e1 !important;
+            font-family: 'Inter', sans-serif !important;
+            margin: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif !important;
+            color: white !important;
+        }
+
+        .text-terminal-green {
+            color: var(--terminal-green) !important;
+        }
+
+        .bg-terminal-green {
+            background-color: var(--terminal-green) !important;
+        }
+
+        .border-terminal-green {
+            border-color: var(--terminal-green) !important;
+        }
+    </style>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'terminal-green': '#00ff41',
+                        'terminal-blue': '#00f2ff',
+                        'bg-deep': '#020408',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        space: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <script defer src="blogs-script.js"></script>
+    <style type="text/tailwindcss">
         @layer base {
             body {
-                @apply bg-[var(--bg-deep)] text-slate-300 font-['Inter'] selection:bg-[var(--terminal-green)] selection:text-black;
+                @apply bg-bg-deep text-slate-300 font-inter selection:bg-terminal-green selection:text-black;
             }
             h1, h2, h3, .nav-logo {
-                @apply font-['Space_Grotesk'] tracking-tight;
-            }
-            .mono-label {
-                @apply font-['JetBrains_Mono'] uppercase tracking-widest text-[10px];
-            }
-            .mono-data {
-                @apply font-['JetBrains_Mono'];
+                @apply font-space tracking-tight;
             }
         }
         .crt-overlay {
@@ -52,219 +95,104 @@
             content: '';
             position: absolute;
             top: -1px; left: -1px; width: 10px; height: 10px;
-            border-top: 2px solid var(--terminal-green);
-            border-left: 2px solid var(--terminal-green);
+            border-top: 2px solid #00ff41;
+            border-left: 2px solid #00ff41;
         }
         .data-stream-border::after {
             content: '';
             position: absolute;
             bottom: -1px; right: -1px; width: 10px; height: 10px;
-            border-bottom: 2px solid var(--terminal-green);
-            border-right: 2px solid var(--terminal-green);
-        }
-        .holographic-overlay {
-            mix-blend-mode: screen;
-            opacity: 0.4;
-            filter: contrast(120%) brightness(80%);
-        }
-        .glow-text-green {
-            text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
-        }
-        .glow-text-blue {
-            text-shadow: 0 0 8px rgba(0, 242, 255, 0.5);
-        }
-        .sidebar-scroller::-webkit-scrollbar {
-            width: 2px;
-        }
-        .sidebar-scroller::-webkit-scrollbar-thumb {
-            background: var(--terminal-green);
+            border-bottom: 2px solid #00ff41;
+            border-right: 2px solid #00ff41;
         }
     </style>
 </head>
 
 <body class="overflow-x-hidden">
     <div class="crt-overlay"></div>
-    <nav class="fixed w-full z-50 border-b border-[var(--terminal-green)]/20 bg-black/80 backdrop-blur-xl">
+    <nav class="fixed w-full z-50 border-b border-terminal-green/20 bg-black/80 backdrop-blur-xl">
         <div class="max-w-[1600px] mx-auto px-4 h-14 flex items-center justify-between">
             <div class="flex items-center space-x-4">
-                <span class="material-symbols-outlined text-[var(--terminal-green)] animate-pulse">flowsheet</span>
-                <span class="nav-logo font-bold tracking-[0.1em] text-sm md:text-lg text-white">OPENFOAM_WALKTHROUGHS //
-                    CASE_STUDIES</span>
+                <a href="../index.html" class="flex items-center space-x-4 group">
+                    <span
+                        class="material-symbols-outlined text-terminal-green group-hover:animate-pulse">flowsheet</span>
+                    <span
+                        class="nav-logo font-bold tracking-[0.1em] text-sm md:text-lg text-white">OPENFOAM_WALKTHROUGHS
+                        // CASE_STUDIES</span>
+                </a>
             </div>
-            <div class="flex items-center space-x-6 mono-label text-[var(--terminal-green)]">
-                <span class="hidden md:block">STATUS: DOCUMENTING_CASES</span>
-                <span class="hidden md:block">CLEARANCE: PUBLIC_OPEN_SOURCE</span>
-                <div class="h-2 w-2 rounded-full bg-[var(--terminal-green)] shadow-[0_0_8px_var(--terminal-green)]">
+            <div class="flex items-center space-x-6 font-mono text-terminal-green text-[10px] uppercase">
+                <span class="hidden md:block">STATUS: ARCHIVE_SYNC</span>
+                <span class="hidden md:block">CLEARANCE: PUBLIC</span>
+                <div class="h-2 w-2 rounded-full bg-terminal-green shadow-[0_0_8px_var(--terminal-green)]">
                 </div>
             </div>
         </div>
     </nav>
     <div class="flex pt-14 min-h-screen">
         <aside
-            class="w-64 border-r border-[var(--terminal-green)]/10 hidden lg:flex flex-col p-6 sticky top-14 h-[calc(100vh-3.5rem)] sidebar-scroller overflow-y-auto">
+            class="w-64 border-r border-terminal-green/10 hidden lg:flex flex-col p-6 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
             <div class="space-y-8">
                 <div>
-                    <h4 class="mono-label text-slate-500 mb-4">INDEX</h4>
+                    <h4 class="font-mono uppercase tracking-widest text-[10px] text-slate-500 mb-4">INDEX</h4>
                     <ul class="space-y-3 text-sm font-medium">
-                        <li><a class="flex items-center space-x-2 hover:text-[var(--terminal-green)] transition-colors group"
+                        <li><a class="flex items-center space-x-2 hover:text-terminal-green transition-colors group"
                                 href="../index.html"><span
                                     class="material-symbols-outlined text-sm opacity-50">home</span><span>Home</span></a>
                         </li>
-                        <li><a class="flex items-center space-x-2 hover:text-[var(--terminal-green)] transition-colors"
+                        <li><a class="flex items-center space-x-2 hover:text-terminal-green transition-colors"
                                 href="../cases/cases.html"><span
                                     class="material-symbols-outlined text-sm opacity-50">terminal</span><span>Cases</span></a>
                         </li>
-                        <li><a class="flex items-center space-x-2 text-[var(--terminal-green)] transition-colors text-[var(--terminal-blue)]"
-                                href="#"><span
+                        <li><a class="flex items-center space-x-2 text-terminal-green transition-colors" href="#"><span
                                     class="material-symbols-outlined text-sm">menu_book</span><span>Blogs</span></a>
                         </li>
-                        <li><a class="flex items-center space-x-2 hover:text-[var(--terminal-green)] transition-colors"
+                        <li><a class="flex items-center space-x-2 hover:text-terminal-green transition-colors"
                                 href="../about.html"><span
                                     class="material-symbols-outlined text-sm opacity-50">person_outline</span><span>About</span></a>
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="mono-label text-slate-500 mb-4">Practical_Topics</h4>
-                    <div class="space-y-2">
-                        <label
-                            class="flex items-center space-x-2 text-xs cursor-pointer hover:bg-[var(--terminal-green)]/5 p-1 rounded font-medium">
-                            <input checked=""
-                                class="rounded bg-black border-[var(--terminal-green)] text-[var(--terminal-green)] focus:ring-0"
-                                type="checkbox" />
-                            <span>Meshing (snappyHexMesh)</span>
-                        </label>
-                        <label
-                            class="flex items-center space-x-2 text-xs cursor-pointer hover:bg-[var(--terminal-green)]/5 p-1 rounded font-medium">
-                            <input checked=""
-                                class="rounded bg-black border-[var(--terminal-green)] text-[var(--terminal-green)] focus:ring-0"
-                                type="checkbox" />
-                            <span>Solver Configuration</span>
-                        </label>
-                        <label
-                            class="flex items-center space-x-2 text-xs cursor-pointer hover:bg-[var(--terminal-green)]/5 p-1 rounded font-medium">
-                            <input
-                                class="rounded bg-black border-[var(--terminal-green)] text-[var(--terminal-green)] focus:ring-0"
-                                type="checkbox" />
-                            <span>Post-Processing</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-auto pt-8">
-                <div class="bg-black/50 border border-[var(--terminal-green)]/20 p-4 rounded text-[10px]">
-                    <p class="mono-label text-[var(--terminal-green)]/60 mb-2">Simulated Data Volume</p>
-                    <div class="w-full bg-slate-900 h-1 mb-1">
-                        <div class="bg-[var(--terminal-green)] h-full w-[45%] shadow-[0_0_4px_var(--terminal-green)]">
-                        </div>
-                    </div>
-                    <div class="flex justify-between mono-data text-[var(--terminal-green)]">
-                        <span>250 GB Local Storage</span>
-                        <span>ARCHIVING</span>
-                    </div>
-                </div>
             </div>
         </aside>
+
         <main class="flex-1 p-4 md:p-8 lg:p-12">
             <div class="max-w-4xl mx-auto space-y-12">
                 <div class="flex items-center space-x-4 mb-4">
                     <input type="text" id="search" placeholder="SEARCH BLOG POSTS..."
-                        class="w-full bg-slate-900 border border-[var(--terminal-green)]/20 text-[var(--terminal-green)] text-sm focus:ring-1 focus:ring-[var(--terminal-green)] rounded px-4 py-3 uppercase placeholder:text-slate-700 font-mono">
+                        class="w-full bg-slate-900 border border-terminal-green/20 text-terminal-green text-sm focus:ring-1 focus:ring-terminal-green rounded px-4 py-3 uppercase placeholder:text-slate-700 font-mono">
                 </div>
+
                 <div
-                    class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 border-b border-[var(--terminal-green)]/10 pb-8">
+                    class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 border-b border-terminal-green/10 pb-8 font-mono">
                     <div class="space-y-1">
-                        <span class="mono-label text-slate-500">Published Posts</span>
-                        <div class="text-xl text-[var(--terminal-green)] glow-text-green mono-data">01_LIVE</div>
+                        <span class="text-[10px] uppercase text-slate-500">Published Posts</span>
+                        <div class="text-xl text-terminal-green">01_LIVE</div>
                     </div>
                     <div class="space-y-1">
-                        <span class="mono-label text-slate-500">Drafts</span>
-                        <div class="text-xl text-[var(--terminal-blue)] glow-text-blue mono-data">03_PENDING</div>
+                        <span class="text-[10px] uppercase text-slate-500">Drafts</span>
+                        <div class="text-xl text-terminal-blue">03_PENDING</div>
                     </div>
                     <div class="space-y-1">
-                        <span class="mono-label text-slate-500">Series Active</span>
-                        <div class="text-xl mono-data">CFD_BASICS</div>
-                    </div>
-                    <div class="space-y-1">
-                        <span class="mono-label text-slate-500">Reading Time</span>
-                        <div class="text-xl mono-data">~5_MINS</div>
+                        <span class="text-[10px] uppercase text-slate-500">Series Active</span>
+                        <div class="text-xl text-white">CFD_BASICS</div>
                     </div>
                 </div>
 
                 <div id="blog-list" class="space-y-8">
-                    <!-- Blog posts will be injected here by blogs-script.js -->
-                </div>
-
-            </div>
-            <div class="max-w-4xl mx-auto mt-20 pt-20 border-t border-[var(--terminal-green)]/10">
-                <div class="flex flex-col items-center text-center space-y-6">
-                    <div class="flex space-x-2 items-center">
-                        <div class="w-2 h-2 bg-[var(--terminal-green)] animate-pulse"></div>
-                        <div class="w-2 h-2 bg-[var(--terminal-green)] animate-pulse [animation-delay:0.2s]"></div>
-                        <div class="w-2 h-2 bg-[var(--terminal-green)] animate-pulse [animation-delay:0.4s]"></div>
-                    </div>
-                    <span class="mono-label text-[var(--terminal-green)]/60">Compiling Future Tutorial Blocks</span>
+                    <!-- Blog posts injected by blogs-script.js -->
                 </div>
             </div>
         </main>
-        <aside
-            class="w-80 border-l border-[var(--terminal-green)]/10 hidden xl:flex flex-col p-6 sticky top-14 h-[calc(100vh-3.5rem)]">
-            <div class="space-y-12">
-                <div>
-                    <h4 class="mono-label text-slate-500 mb-6">Simulation_Updates</h4>
-                    <div class="space-y-4">
-                        <div class="bg-blue-500/10 border-l-2 border-blue-500 p-3 text-xs">
-                            <p class="text-blue-400 font-bold mb-1 mono-label">Draft: Meshing Tips</p>
-                            <p class="text-slate-400">New post on refining boundary layers with snappyHexMesh addLayers
-                                feature coming soon.</p>
-                        </div>
-                        <div class="bg-[var(--terminal-green)]/5 border-l-2 border-[var(--terminal-green)] p-3 text-xs">
-                            <p class="text-[var(--terminal-green)] font-bold mb-1 mono-label">Solved: Divergence Issue
-                            </p>
-                            <p class="text-slate-400">Fixed checkMesh errors in the 'T-Junction' case by adjusting cell
-                                skewness limits.</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="mono-label text-slate-500 mb-6">Contact_Form</h4>
-                    <div
-                        class="bg-black/80 border border-[var(--terminal-green)]/20 p-6 rounded relative overflow-hidden">
-                        <div
-                            class="absolute top-0 right-0 w-16 h-16 bg-[var(--terminal-green)]/5 -rotate-45 translate-x-8 -translate-y-8">
-                        </div>
-                        <p class="text-xs text-slate-400 mb-4 leading-relaxed font-medium">Reach out for questions on
-                            specific case setups or suggested CFD topics for future tutorial blocks.</p>
-                        <form class="space-y-3">
-                            <input
-                                class="w-full bg-slate-900 border border-[var(--terminal-green)]/20 text-[var(--terminal-green)] text-[10px] focus:ring-1 focus:ring-[var(--terminal-green)] rounded px-3 py-2 uppercase placeholder:text-slate-700 font-mono"
-                                placeholder="USER@PROVIDER.COM" type="email" />
-                            <button
-                                class="w-full bg-[var(--terminal-green)] text-black font-bold mono-label py-2 hover:brightness-110 transition-all">MESSAGE_USER</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="mt-auto">
-                    <div class="text-[9px] text-slate-600 mono-data uppercase">
-                        <p>REGISTRY: CFD_CASE_PORTFOLIO</p>
-                        <p>TIMESTAMP: <span class="text-[var(--terminal-green)]">2024:10:14:12:30:UTC</span></p>
-                        <p class="mt-4">© 2024 OPENFOAM PRACTITIONER LOG</p>
-                    </div>
-                </div>
-            </div>
-        </aside>
     </div>
+
     <div class="fixed inset-0 z-[-1] opacity-20 pointer-events-none overflow-hidden">
-        <div
-            class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
-        </div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--terminal-green)]/5 to-transparent">
-        </div>
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-terminal-green/5 to-transparent"></div>
         <div
             class="absolute inset-0 bg-[linear-gradient(to_right,#10b98110_1px,transparent_1px),linear-gradient(to_bottom,#10b98110_1px,transparent_1px)] bg-[size:40px_40px]">
         </div>
     </div>
-
 </body>
 
 </html>
