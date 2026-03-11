@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </p>
                         <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
                             <span class="mono-label text-[var(--terminal-blue)]">Solver Details Internal</span>
-                            <a class="text-xs font-semibold text-[var(--terminal-green)] flex items-center space-x-2 hover:text-white transition-colors cursor-pointer" onclick="viewDetails('${tc.name}')">
+                            <a class="text-xs font-semibold text-[var(--terminal-green)] flex items-center space-x-2 hover:text-white transition-colors cursor-pointer" href="data/${tc.name.toLowerCase().replace(/\s+/g, '')}.html">
                                 <span>READ WALKTHROUGH</span>
                                 <span class="material-symbols-outlined text-sm">arrow_forward</span>
                             </a>
@@ -72,11 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 testcaseList.appendChild(article);
             });
     }
-
-    window.viewDetails = (name) => {
-        const pageName = "data/" + name.toLowerCase().replace(/\s+/g, '') + ".html"; // Convert name to lowercase and remove spaces
-        window.location.href = pageName; // Redirect to the corresponding HTML file
-    };
 
     window.closeInfo = () => {
         infoSection.style.display = "none";

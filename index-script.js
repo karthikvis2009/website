@@ -56,9 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (track && indicators && featuredItems.length > 0) {
         featuredItems.forEach((item, idx) => {
             // Create slide
-            const slide = document.createElement('div');
-            slide.className = 'w-full h-full flex-shrink-0 relative group cursor-pointer';
-            slide.onclick = () => window.location.href = item.link;
+            const slide = document.createElement('a');
+            slide.className = 'w-full h-full block flex-shrink-0 relative group cursor-pointer';
+            slide.href = item.link;
 
             const badgeColor = item.type === 'CASE_STUDY' ? 'text-[var(--terminal-green)]' : 'text-[var(--terminal-blue)]';
 
@@ -129,28 +129,30 @@ document.addEventListener("DOMContentLoaded", () => {
         // Pause on hover
         track.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
         track.addEventListener('mouseleave', resetAutoPlay);
-        // Mobile Navigation Toggle
-        const logoToggle = document.getElementById('logo-toggle');
-        const sidebar = document.querySelector('aside');
+    }
 
-        if (logoToggle && sidebar) {
-            logoToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                sidebar.classList.toggle('sidebar-active');
-            });
+    // Mobile Navigation Toggle
+    const logoToggle = document.getElementById('logo-toggle');
+    const sidebar = document.querySelector('aside');
 
-            // Close sidebar when clicking outside
-            document.addEventListener('click', (e) => {
-                if (sidebar.classList.contains('sidebar-active') && !sidebar.contains(e.target) && !logoToggle.contains(e.target)) {
-                    sidebar.classList.remove('sidebar-active');
-                }
-            });
+    if (logoToggle && sidebar) {
+        logoToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('sidebar-active');
+        });
 
-            // Close sidebar when clicking a link (mobile)
-            sidebar.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    sidebar.classList.remove('sidebar-active');
-                });
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('sidebar-active') && !sidebar.contains(e.target) && !logoToggle.contains(e.target)) {
+                sidebar.classList.remove('sidebar-active');
+            }
+        });
+
+        // Close sidebar when clicking a link (mobile)
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('sidebar-active');
             });
-        }
-    });
+        });
+    }
+});

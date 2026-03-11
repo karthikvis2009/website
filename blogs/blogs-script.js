@@ -19,13 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
         blogPosts
             .filter(bp => bp.title.toLowerCase().includes(filter.toLowerCase()) || bp.excerpt.toLowerCase().includes(filter.toLowerCase()))
             .forEach((bp, idx) => {
-                const article = document.createElement("article");
-                article.classList.add("data-stream-border", "bg-black/40", "group", "overflow-hidden", "p-6", "md:p-8", "hover:bg-black/60", "transition-colors");
+                const article = document.createElement("a");
+                article.href = bp.link;
+                article.classList.add("block", "data-stream-border", "bg-black/40", "group", "overflow-hidden", "p-6", "md:p-8", "hover:bg-black/60", "transition-colors");
 
                 const tagsHtml = bp.tags.map(tag => `<span class="bg-[var(--terminal-green)]/10 text-[var(--terminal-green)] border border-[var(--terminal-green)]/30 px-2 py-0.5 rounded-sm mono-label text-[8px] mr-2">${tag}</span>`).join('');
 
                 article.innerHTML = `
-                <div class="flex flex-col h-full cursor-pointer" onclick="window.location.href='${bp.link}'">
+                <div class="flex flex-col h-full cursor-pointer">
                     <div class="flex items-center justify-between mb-4 border-b border-[var(--terminal-green)]/10 pb-4">
                         <div class="flex items-center space-x-4">
                             <span class="mono-label text-[var(--terminal-green)] font-bold bg-[var(--terminal-green)]/10 px-2 py-1">POST_0${idx + 1}</span>
