@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/karthikvis2009/website#readme",
   "dependencies": {
-    "jsdom": "^28.1.0"
+    "jsdom": "^28.1.0",
+    "playwright": "^1.58.2"
   }
 }
