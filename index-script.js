@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const featuredItems = [
+    const allCases = [
         {
             name: "Kenics Helical Static Mixer",
             description: "CFD analysis of a Kenics helical static mixer. A robust case demonstrating mixing efficiency.",
@@ -8,12 +8,29 @@ document.addEventListener("DOMContentLoaded", () => {
             type: "CASE_STUDY"
         },
         {
+            name: "Rising Bubble",
+            description: "2D Simulation of a rising bubble showcasing multiphase flow dynamics.",
+            image: "cases/assets/risingBub/risingBub.png",
+            link: "cases/data/risingbubble.html",
+            type: "CASE_STUDY"
+        },
+        {
+            name: "Laminar flow past a cylinder",
+            description: "2D laminar flow past a cylinder demonstrating vortex shedding fundamentals.",
+            image: "cases/assets/fpcLam/fpcLam.png",
+            link: "cases/data/laminarflowpastacylinder.html",
+            type: "CASE_STUDY"
+        },
+        {
             name: "Fluidized bed",
             description: "Advanced simulation of a fluidized bed showcasing particle-fluid interactions.",
             image: "cases/assets/fluidizedBed/fb.png",
             link: "cases/data/fluidizedbed.html",
             type: "CASE_STUDY"
-        },
+        }
+    ];
+
+    const allBlogs = [
         {
             name: "Introduction to CFD Analysis",
             description: "Understanding the fundamentals of Computational Fluid Dynamics and its applications.",
@@ -22,6 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
             type: "BLOG_POST"
         }
     ];
+
+    const randomCase = allCases[Math.floor(Math.random() * allCases.length)];
+    const randomBlog = allBlogs[Math.floor(Math.random() * allBlogs.length)];
+
+    const featuredItems = [randomCase, randomBlog];
 
     const track = document.getElementById('carousel-track');
     const indicators = document.getElementById('carousel-indicators');
