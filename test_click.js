@@ -5,17 +5,23 @@ const { chromium } = require('playwright');
   const page = await browser.newPage();
   
   await page.goto('http://localhost:8080/index.html');
-  await page.waitForTimeout(2000); 
+  await page.waitForTimeout(1000); // Wait for carousel to load
+  
+  // Test 1: Click "VIEW CASES" primary button
+  console.log("Testing VIEW_CASES button:");
+  await page.click('a[href="cases/cases.html"]');
+  console.log("Navigated to:", page.url());
+  await page.goto('http://localhost:8080/index.html'); // go back
+  await page.waitForTimeout(500);
 
-  // Make sure to click the first true link slide
-  const slides = await page.$$('a.group');
+  // Test 2: Click first carousel item
+  console.log("\nTesting Carousel Item Click:");
+  const slides = await page.$$('.group');
   if (slides.length > 0) {
-     console.log("Carousel slides are anchors!");
      await slides[0].click();
-     await page.waitForTimeout(1000); 
-     console.log("Navigated to:", page.url());
+     console.log("Carousel click navigated to:", page.url());
   } else {
-     console.log("No anchor slides found.");
+     console.log("No carousel slides found.");
   }
   
   await browser.close();
