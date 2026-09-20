@@ -6,7 +6,7 @@ Slug: rising-bubble-2d
 Summary: 2D Multiphase simulation of a rising bubble using VoF method in OpenFOAM 
 Image: images/rising_bub2d/risingBub.gif
 
-![Rising bubble simulation]({static}/assets/risingBub/risingBub.gif)
+![Rising bubble simulation]({static}/images/rising_bub2d/risingBub.gif)
 
 ## Description
 
