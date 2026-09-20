@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Karthik Viswanathan</title>
+
+
+    <link rel="stylesheet" href="https://karvis.in/theme/css/style.css">
+</head>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [
+      ['\\(', '\\)'],
+      ['$', '$']
+    ],
+    displayMath: [
+      ['\\[', '\\]'],
+      ['$$', '$$']
+    ]
+  }
+};
+</script>
+
+<script async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrapper">
+            <a class="brand" href="https://karvis.in/">
+                <span class="brand-mark">∿</span>
+                <span>Karthik Viswanathan</span>
+            </a>
+
+            <nav class="navigation">
+                <a href="https://karvis.in/">Home</a>
+                <a href="https://karvis.in/category/cfd-cases.html">CFD Cases</a>
+                <a href="https://karvis.in/blog/">Blog</a>
+                <a href="https://karvis.in/about/">About</a>
+                <a href="https://karvis.in/cv/">CV</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+<article class="article-page">
+    <div class="container article-container">
+        <header class="article-header">
+            <p class="eyebrow">CFD Cases</p>
+
+            <h1>Simulation of a Rising Bubble in 2D</h1>
+
+            <div class="article-meta">
+                <span>20 September 2026</span>
+
+                    <span>·</span>
+                    <span>
+                            OpenFOAM,                             CFD,                             multiphase flow,                             rising bubble,                             VOF                    </span>
+            </div>
+        </header>
+
+            <img class="article-feature-image"
+                 src="https://karvis.in/images/rising_bub2d/risingBub.gif"
+                 alt="Simulation of a Rising Bubble in 2D">
+
+        <div class="article-content">
+            <p><img alt="Rising bubble simulation" src="https://karvis.in/images/rising_bub2d/risingBub.gif"></p>
+<h2>Description</h2>
+<p>This case presents a two-dimensional multiphase simulation of a rising bubble.</p>
+<p><strong>Reference paper:</strong> <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/fld.1934">Quantitative Benchmark Computations of Two-Dimensional Bubble Dynamics</a></p>
+<h2>Model</h2>
+<p>The model geometry was created using <code>blockMesh</code> in OpenFOAM. The geometry is a cuboid with the front and back faces defined as <code>empty</code> patches for the two-dimensional simulation.</p>
+<p>The domain has the following dimensions:</p>
+<ul>
+<li>Width: $1 \mathrm{m}$</li>
+<li>Height: $2 \mathrm{m}$</li>
+<li>Depth: $0.2 \mathrm{m}$</li>
+</ul>
+<p>The bubble was initialized at the position</p>
+<p>$$
+(x,y,z)=(0.5,0.5,0)
+$$</p>
+<p>with a radius of</p>
+<p>$$
+r=0.25\,\mathrm{m}
+$$</p>
+<h2>Meshing</h2>
+<p>The mesh was generated using the <code>blockMesh</code> utility in OpenFOAM.</p>
+<p>The resulting mesh contained:</p>
+<ul>
+<li>320,000 hexahedral cells</li>
+<li>642,402 points</li>
+</ul>
+<p>The front and back faces of the domain were assigned the <code>empty</code> boundary condition to represent a two-dimensional simulation.</p>
+<h2>Physics</h2>
+<p>The incompressible volume-of-fluid method was used to model the free surface between the bubble and the surrounding liquid. This method is useful when tracking the interface between two phases.</p>
+<p>The continuity equation is</p>
+<p>$$
+\frac{\partial u}{\partial x}
++
+\frac{\partial v}{\partial y}
++
+\frac{\partial w}{\partial z}
+=0
+$$</p>
+<p>The momentum conservation equations are</p>
+<p>$$
+\frac{\partial u}{\partial t}
++
+u\frac{\partial u}{\partial x}
++
+v\frac{\partial u}{\partial y}
+=
+-\frac{1}{\rho_{\mathrm{mix}}}
+\frac{\partial P}{\partial x}
++
+\frac{\mu_{\mathrm{mix}}}{\rho_{\mathrm{mix}}}
+\left(
+\frac{\partial^2 u}{\partial x^2}
++
+\frac{\partial^2 u}{\partial y^2}
+\right)
++
+g_x
++
+F_{s,x}
+$$</p>
+<p>$$
+\frac{\partial v}{\partial t}
++
+u\frac{\partial v}{\partial x}
++
+v\frac{\partial v}{\partial y}
+=
+-\frac{1}{\rho_{\mathrm{mix}}}
+\frac{\partial P}{\partial y}
++
+\frac{\mu_{\mathrm{mix}}}{\rho_{\mathrm{mix}}}
+\left(
+\frac{\partial^2 v}{\partial x^2}
++
+\frac{\partial^2 v}{\partial y^2}
+\right)
++
+g_y
++
+F_{s,y}
+$$</p>
+<p>The mixture density is calculated as</p>
+<p>$$
+\rho_{\mathrm{mix}}
+=
+\alpha\rho_{\mathrm{liq}}
++
+(1-\alpha)\rho_{\mathrm{gas}}
+$$</p>
+<p>The mixture viscosity is calculated as</p>
+<p>$$
+\mu_{\mathrm{mix}}
+=
+\alpha\mu_{\mathrm{liq}}
++
+(1-\alpha)\mu_{\mathrm{gas}}
+$$</p>
+<p>Here, $\alpha$ is the volume fraction. The surface tension force is given by</p>
+<p>$$
+\mathbf{F}_s
+=
+\sigma\kappa\nabla\alpha
+$$</p>
+<p>where the interface curvature is</p>
+<p>$$
+\kappa
+=
+\nabla\cdot
+\left(
+\frac{\nabla\alpha}{|\nabla\alpha|}
+\right)
+$$</p>
+<h2>Simulation</h2>
+<p>The case was simulated using the <code>incompressibleVoF</code> solver in OpenFOAM.</p>
+<p>The volume fraction of the liquid phase, $\alpha$, was initialized to zero inside the bubble and to one elsewhere.</p>
+<p>The default value of <code>alpha.water</code> was set to one throughout the domain. The <code>setFields</code> utility was then used to set the value of <code>alpha.water</code> to zero inside a cylindrical region defined by:
+- p1     = (0.5 0.5 -0.2)
+- p2     = (0.5 0.5  0.2)
+- radius = 0.25</p>
+<h3>Fluid Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th style="text-align: right;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\nu_{\mathrm{liq}}$</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>$\nu_{\mathrm{gas}}$</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>$\rho_{\mathrm{liq}}$</td>
+<td style="text-align: right;">1000</td>
+</tr>
+<tr>
+<td>$\rho_{\mathrm{gas}}$</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr>
+<td>Surface tension coefficient, $\sigma$</td>
+<td style="text-align: right;">24.5</td>
+</tr>
+<tr>
+<td>Gravitational acceleration, $g_y$</td>
+<td style="text-align: right;">0.98</td>
+</tr>
+</tbody>
+</table>
+<p>These properties result in a Reynolds number of</p>
+<p>$$
+Re=35
+$$</p>
+<p>and an Eötvös number of</p>
+<p>$$
+Eo=10
+$$</p>
+<h3>Boundary Conditions</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th><code>internalField</code></th>
+<th><code>leftRight</code></th>
+<th><code>bottomTop</code></th>
+<th><code>frontBack</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>alpha.water</code></strong></td>
+<td>Initialized using <code>setFields</code></td>
+<td><code>zeroGradient</code></td>
+<td><code>zeroGradient</code></td>
+<td><code>empty</code></td>
+</tr>
+<tr>
+<td><strong>Velocity</strong></td>
+<td><code>uniform (0 0 0)</code></td>
+<td><code>slip</code></td>
+<td><code>noSlip</code></td>
+<td><code>empty</code></td>
+</tr>
+<tr>
+<td><strong>Pressure (<code>p_rgh</code>)</strong></td>
+<td><code>uniform 0</code></td>
+<td><code>fixedFluxPressure</code></td>
+<td><code>fixedFluxPressure</code></td>
+<td><code>empty</code></td>
+</tr>
+</tbody>
+</table>
+<p>The transient laminar flow simulation was run for a total time of $3\,\mathrm{s}$, using a time step of</p>
+<p>$$
+\Delta t=10^{-5}\,\mathrm{s}
+$$</p>
+<p>The solution was obtained using the Pressure-Implicit with Splitting of Operators (PISO) algorithm with:</p>
+<ul>
+<li>3 correctors</li>
+<li>1 outer corrector</li>
+<li>A relaxation factor of 0.3 for <code>p_rgh</code></li>
+</ul>
+<h2>Validation</h2>
+<p>The results were validated using the available <a href="https://wwwold.mathematik.tu-dortmund.de/~featflow/en/benchmarks/cfdbenchmarking/bubble/bubble_reference.html">bubble validation dataset</a>.</p>
+<p>The dataset <code>c1g1l7</code> was used for the validation.</p>
+<p><img alt="Validation data" src="https://karvis.in/images/rising_bub2d/valData.png"></p>
+<p>The following quantities were compared with the validation data:</p>
+<ul>
+<li>Bubble centroid</li>
+<li>Bubble rise velocity</li>
+<li>Bubble circularity</li>
+</ul>
+<p>The simulation results are in close agreement with the validation results.</p>
+        </div>
+    </div>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>© Karthik Viswanathan .</p>
+            <p>Computational Fluid Dynamics · Engineering · Python</p>
+        </div>
+    </footer>
+
+    <script src="https://karvis.in/theme/js/main.js"></script>
+</body>
+</html>
