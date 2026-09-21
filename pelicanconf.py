@@ -1,6 +1,6 @@
 AUTHOR = 'Karthik Viswanathan'
 SITENAME = 'Karthik Viswanathan'
-SITEURL = ""
+# SITEURL = "https://karvis.in"
 THEME = "theme/cfd-theme"
 PATH = "content"
 
