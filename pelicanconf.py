@@ -2,6 +2,7 @@ AUTHOR = 'Karthik Viswanathan'
 SITENAME = 'Karthik Viswanathan'
 SITEURL = ""
 THEME = "theme/cfd-theme"
+THEME = "simple"
 PATH = "content"
 
 TIMEZONE = 'Europe/Rome'
