@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% if title %}
+        <title>{{ title }} — {{ SITENAME }}</title>
+    {% else %}
+        <title>{{ SITENAME }}</title>
+    {% endif %}
+
+    {% if description %}
+        <meta name="description" content="{{ description }}">
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css">
+</head>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [
+      ['\\(', '\\)'],
+      ['$', '$']
+    ],
+    displayMath: [
+      ['\\[', '\\]'],
+      ['$$', '$$']
+    ]
+  }
+};
+</script>
+
+<script async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrapper">
+            <a class="brand" href="{{ SITEURL }}/">
+                <span class="brand-mark">∿</span>
+                <span>{{ AUTHOR }}</span>
+            </a>
+
+            <nav class="navigation">
+                <a href="{{ SITEURL }}/">Home</a>
+                <a href="{{ SITEURL }}/category/cfd-cases.html">CFD Cases</a>
+                <a href="{{ SITEURL }}/blog/">Blog</a>
+                <a href="{{ SITEURL }}/about/">About</a>
+                <a href="{{ SITEURL }}/cv/">CV</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>© {{ AUTHOR }} {{ CURRENTYEAR }}.</p>
+            <p>Computational Fluid Dynamics · Engineering · Python</p>
+        </div>
+    </footer>
+
+    <script src="{{ SITEURL }}/theme/js/main.js"></script>
+</body>
+</html>
