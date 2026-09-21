@@ -32,6 +32,26 @@
         <div class="article-content">
             {{ article.content }}
         </div>
+
+        <div class="article-navigation">
+
+            {% if article.category.name == "Blog" %}
+                <a class="article-nav-button primary" href="{{ SITEURL }}/pages/blog.html">
+                    ← Return to Blogs
+                </a>
+            {% elif article.category.name == "CFD Cases" %}
+                <a class="article-nav-button primary" href="{{ SITEURL }}/pages/cases.html">
+                    ← Return to CFD Cases
+                </a>
+            {% endif %}
+
+            <a class="article-nav-button secondary" href="{{ SITEURL }}/">
+                Home
+            </a>
+
+        </div>
+
+
     </div>
 </article>
 

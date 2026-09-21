@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section landing-hero">
+    <div class="container">
+        <p class="eyebrow">FROM THE NOTEBOOK</p>
+        <h1>Engineering notes</h1>
+        <p class="landing-intro">
+            Notes on CFD, OpenFOAM, Python, meshing, numerical methods,
+            optimisation, and engineering workflows.
+        </p>
+    </div>
+</section>
+
+<section class="section section-tight">
+    <div class="container">
+        <div class="article-list">
+            {% for article in articles if article.category.name == "Blog" %}
+                <article class="article-list-item">
+                    <div>
+                        <p class="article-date">
+                            {{ article.date.strftime("%d %B %Y") }}
+                        </p>
+                        <h3>
+                            <a href="{{ SITEURL }}/{{ article.url }}">
+                                {{ article.title }}
+                            </a>
+                        </h3>
+                        {% if article.tags %}
+                            <p class="article-tags">
+                                {% for tag in article.tags %}
+                                    {{ tag }}{% if not loop.last %} · {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <p>{{ article.summary }}</p>
+                </article>
+            {% else %}
+                <p>No blog posts have been published yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

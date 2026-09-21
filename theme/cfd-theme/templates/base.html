@@ -36,6 +36,7 @@ window.MathJax = {
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 
+
 <body>
     <header class="site-header">
         <div class="container nav-wrapper">
@@ -45,9 +46,31 @@ window.MathJax = {
             </a>
 
             <nav class="navigation">
-                <a href="{{ SITEURL }}/">Home</a>
-                <a href="{{ SITEURL }}/blog/">Blog</a>
-                <a href="{{ SITEURL }}/pages/about.html">About</a>
+
+                <!-- Home -->
+                <a href="{{ SITEURL }}/"
+                   class="{% if output_file == 'index.html' %}active{% endif %}">
+                    Home
+                </a>
+
+                <!-- Blog -->
+                <a href="{{ SITEURL }}/pages/blog.html"
+                   class="{% if page and page.slug == 'blog' %}active{% elif article and article.category == 'Blog' %}active{% endif %}">
+                    Blogs
+                </a>
+
+                <!-- CFD Cases -->
+                <a href="{{ SITEURL }}/pages/cases.html"
+                   class="{% if page and page.slug == 'cases' %}active{% elif article and article.category == 'CFD Cases' %}active{% endif %}">
+                    CFD Cases
+                </a>
+
+                <!-- About -->
+                <a href="{{ SITEURL }}/pages/about.html"
+                   class="{% if page and page.slug == 'about' %}active{% endif %}">
+                    About
+                </a>
+
             </nav>
         </div>
     </header>

@@ -16,19 +16,19 @@ Image: images/fluidized_bed/fb.gif
 
 ---
 
-### Model
+# Model
 
 The model consists of a rectangular domain of width *0.28 m*, height *1 m*, and depth *0.025 m*.
 
 The initial solids height was *0.4 m*, with an initial solid fraction ($\alpha_s$) of *0.6* and a maximum solid fraction of *0.63*.
 
-### Meshing
+# Meshing
 
 Meshing was performed using `blockMesh`.
 
 The resulting mesh had 498,443 points and 448,000 hexahedral cells.
 
-### Physics
+# Physics
 
 The model was simulated using the two-phase Euler–Euler model, which assumes continuum mechanics for both the fluid phase—in this case, gas—and the solid phase.
 
@@ -51,7 +51,7 @@ The table below provides information about the models used for closure of the eq
 | Frictional stress | `JohnsonJacksonSchaeffer` |
 | Radial model | `SinclairJackson` |
 
-### Simulation
+# Simulation
 
 The case was simulated using the **multiphaseEuler** solver in OpenFOAM.
 
@@ -68,7 +68,7 @@ Some important parameters and their values are given in the table below.
 | Maximum solids packing, $\epsilon_{s,\mathrm{max}}$ | $0.63$ | Fixed value |
 | Superficial gas velocity, $U$ | $0.38\ \mathrm{m/s}$ | Approximately $0.5$–$6U_{mf}$ |
 
-#### Boundary Conditions
+## Boundary Conditions
 
 | Parameter | Internal Field | Inlet | Outlet | Walls |
 |---|---|---|---|---|
@@ -85,7 +85,7 @@ The **transient** simulation was run for 5 s with an adaptive time step of $\Del
 
 The PISO algorithm was used with three non-orthogonal correctors and two correctors, along with drag correction.
 
-### Validation
+# Validation
 
 The results were validated against the reference paper mentioned above.
 
@@ -103,5 +103,3 @@ The mean expansion ratio and pressure drop were calculated over this time range.
 | $\Delta p$ (Pa) | 5245 | 5428 |
 
 From the table above, it can be inferred that the simulation was successfully validated and that fluidization was successfully observed.
-
-[Back to Database](../index.html)
