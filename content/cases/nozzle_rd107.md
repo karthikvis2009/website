@@ -18,10 +18,7 @@ Image: images/nozzle_rd107/velocity.gif
 
 # Model
 
-The model consists of the actual provided dimensions of rd107 nozzle.
-
-#### ADD GEOMETRIC INFO HERE
-The initial solids height was *0.4 m*, with an initial solid fraction ($\alpha_s$) of *0.6* and a maximum solid fraction of *0.63*.
+The model consists of the actual provided dimensions of rd107 nozzle in literature. 
 
 # Meshing
 
@@ -38,7 +35,7 @@ The model solves 2D-axisymmetric compressible Navier-Stokes equations. This is a
 
 RAS models were used to compute the turbulence in both phases.
 
-The $k-\epsilon$ model was used for closure of the turbulence stress in the gas phase.
+The $k-\epsilon$ model was used for closure of the turbulence stress. 
 
 
 # Simulation
